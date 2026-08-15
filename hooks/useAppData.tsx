@@ -22,11 +22,15 @@ import {
   putFavorite,
   putOutfit,
   putRecommendations,
+  putUserModel,
   putWardrobeItem,
+  putWardrobeItems,
 } from "@/lib/db";
 import { DEFAULT_USER_ID } from "@/lib/constants";
+import { REF_BODY, retuneAnchor } from "@/lib/body";
 import { todayKey, uid } from "@/lib/format";
 import { buildDailyRecommendations } from "@/lib/recommendations";
+import { DEFAULT_ANCHOR } from "@/lib/assets";
 import { getMockWeather } from "@/lib/weather";
 import type {
   DailyRecommendation,
@@ -53,17 +57,23 @@ interface AppData {
   deleteOutfit: (id: string) => Promise<void>;
   toggleOutfitFavorite: (outfit: Outfit) => Promise<boolean>;
   regenerateLooks: () => Promise<void>;
+  replaceUserModel: (model: UserModel) => Promise<void>;
 }
 
 const AppDataContext = createContext<AppData | null>(null);
 
 async function loadAll(userId: string, date: string) {
-  const [userModel, wardrobe, outfits, favorites] = await Promise.all([
-    getUserModel(userId),
+  let userModel = await getUserModel(userId);
+  const [wardrobe, outfits, favorites] = await Promise.all([
     getAllWardrobe(),
     getAllOutfits(),
     getAllFavorites(),
   ]);
+  if (userModel && !userModel.body) {
+    // 旧版本数据迁移：补充演示体型
+    userModel = { ...userModel, source: "demo", body: REF_BODY };
+    await putUserModel(userModel);
+  }
   let recommendations = await getRecommendationsForDate(date);
   const weather = getMockWeather();
 
@@ -187,6 +197,19 @@ export function AppDataProvider({ children }: { children: ReactNode }) {
     setRecommendations(next);
   }, [wardrobe, favorites, outfits, weather]);
 
+  /** 更换模特：更新模特图与体型，并按新体型重算所有衣物锚点 */
+  const replaceUserModel = useCallback(async (model: UserModel) => {
+    const body = model.body ?? REF_BODY;
+    const retuned = wardrobe.map((item) => ({
+      ...item,
+      anchor: retuneAnchor(item.anchor ?? DEFAULT_ANCHOR[item.category], body, item.category),
+    }));
+    await putUserModel(model);
+    await putWardrobeItems(retuned);
+    setUserModel(model);
+    setWardrobe(retuned);
+  }, [wardrobe]);
+
   const value = useMemo<AppData>(
     () => ({
       ready,
@@ -204,6 +227,7 @@ export function AppDataProvider({ children }: { children: ReactNode }) {
       deleteOutfit,
       toggleOutfitFavorite,
       regenerateLooks,
+      replaceUserModel,
     }),
     [
       ready,
@@ -221,6 +245,7 @@ export function AppDataProvider({ children }: { children: ReactNode }) {
       deleteOutfit,
       toggleOutfitFavorite,
       regenerateLooks,
+      replaceUserModel,
     ],
   );
 

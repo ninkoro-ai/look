@@ -14,7 +14,23 @@ export interface UserModel {
   modelImage: string;
   modelCanvasWidth: number;
   modelCanvasHeight: number;
+  source?: "demo" | "photo";
+  body?: ModelBody;
   createdAt: string;
+}
+
+/** 模特体型关键点（统一在 600×1200 标准画布坐标系内） */
+export interface ModelBody {
+  headTop: number;
+  neckY: number;
+  shoulderY: number;
+  waistY: number;
+  hipY: number;
+  kneeY: number;
+  ankleY: number;
+  footY: number;
+  shoulderWidth: number;
+  hipWidth: number;
 }
 
 export interface Anchor {

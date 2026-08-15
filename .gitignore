@@ -22,6 +22,10 @@
 # local QA screenshots
 /scripts/shots/
 
+# MediaPipe 运行时资源（由 scripts/fetch-mediapipe.ps1 生成）
+/public/wasm/
+/public/models/
+
 # production
 /build
 

@@ -18,6 +18,7 @@ import {
   type TopVariant,
 } from "@/lib/assets";
 import { DEFAULT_USER_ID, LAYER_BY_CATEGORY } from "@/lib/constants";
+import { REF_BODY } from "@/lib/body";
 import type { Anchor, Category, UserModel, WardrobeItem } from "@/lib/types";
 
 interface ItemSeed {
@@ -452,6 +453,8 @@ export function demoUserModel(): UserModel {
     modelImage: `data:image/svg+xml;utf8,${encodeURIComponent(modelSvg())}`,
     modelCanvasWidth: 600,
     modelCanvasHeight: 1200,
+    source: "demo",
+    body: REF_BODY,
     createdAt: new Date().toISOString(),
   };
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useMemo, useState } from "react";
 import { ModelCanvas } from "@/components/ModelCanvas";
 import { IconChevronRight, IconHeart, IconTrash } from "@/components/icons";
@@ -17,6 +17,7 @@ function outfitIdFromPath(pathname: string): string | null {
 
 function OutfitDetail() {
   const pathname = usePathname();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const pathId = outfitIdFromPath(pathname);
   const id = searchParams.get("id") ?? pathId ?? "";
@@ -58,7 +59,7 @@ function OutfitDetail() {
     await deleteOutfit(outfit.id);
     setRemoved(true);
     show("已删除这套搭配");
-    window.location.href = "/";
+    router.replace("/");
   };
 
   return (

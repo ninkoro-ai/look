@@ -157,3 +157,21 @@ export function IconSparkle(props: IconProps) {
     </svg>
   );
 }
+
+export function IconUser(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4.5 20c.8-4 4-6 7.5-6s6.7 2 7.5 6" />
+    </svg>
+  );
+}
+
+export function IconCamera(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <path d="M4 8h3l1.5-2.5h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z" />
+      <circle cx="12" cy="13.5" r="3.5" />
+    </svg>
+  );
+}

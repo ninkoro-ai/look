@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useMemo, useState } from "react";
 import { ModelCanvas } from "@/components/ModelCanvas";
-import { IconChevronRight, IconHeart, IconX } from "@/components/icons";
+import { ModelSheet } from "@/components/ModelSheet";
+import { IconChevronRight, IconHeart, IconUser, IconX } from "@/components/icons";
 import { useToast } from "@/components/Toast";
 import { CATEGORY_LABELS, CATEGORY_ORDER } from "@/lib/constants";
 import { uid } from "@/lib/format";
@@ -20,6 +21,7 @@ function DressRoom() {
 
   const [outfit, setOutfit] = useState<Outfit | null>(null);
   const [category, setCategory] = useState<Category>("top");
+  const [modelSheetOpen, setModelSheetOpen] = useState(false);
 
   // 渲染期初始化：数据就绪后自动载入初始搭配
   if (!outfit) {
@@ -92,7 +94,13 @@ function DressRoom() {
             ‹ 返回
           </Link>
           <h1 className="font-display text-lg font-semibold tracking-wide text-ink">我的换装间</h1>
-          <span className="w-9" />
+          <button
+            onClick={() => setModelSheetOpen(true)}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface text-muted transition active:scale-95"
+            aria-label="更换模特"
+          >
+            <IconUser width={19} height={19} />
+          </button>
         </div>
       </header>
 
@@ -196,6 +204,7 @@ function DressRoom() {
         <IconChevronRight width={15} height={15} />
       </Link>
 
+      <ModelSheet open={modelSheetOpen} onClose={() => setModelSheetOpen(false)} onUpdated={show} />
       {toast}
     </div>
   );
