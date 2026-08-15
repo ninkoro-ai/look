@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 衣搭 · 我的穿搭日记
 
-## Getting Started
+移动端优先的「数字衣橱 + 换装 + 每日穿搭推荐」PWA。
 
-First, run the development server:
+将你的真实衣物建立为数字衣橱，用你自己的全身照作为换装模特，自由组合衣服；每天根据天气生成 3 套穿搭推荐（LOOK 01 随机灵感 / LOOK 02 穿衣法则 / LOOK 03 我的收藏）。
+
+## 当前阶段：Phase 0–4（本地 MVP）
+
+已按开发纪律完成：
+
+- Phase 0 项目初始化、Domain Model、IndexedDB、页面骨架
+- Phase 1 换装引擎（分层渲染、点击即换、不刷新页面）
+- Phase 2 衣橱（查看 / 添加 / 编辑 / 删除 / 收藏）
+- Phase 3 规则推荐算法（随机、穿衣法则、收藏回退）
+- Phase 4 首页 + 天气 Mock + 穿搭详情
+
+未接入真实 AI API、无登录、无云端数据库；所有数据保存在浏览器本地（IndexedDB），可离线运行。
+
+## 技术栈
+
+- Next.js 16（App Router）+ TypeScript
+- Tailwind CSS v4
+- IndexedDB（idb）
+- PWA（manifest + Service Worker，生产环境启用）
+- 本地 SVG 素材（模特插画 + 35 件演示单品，透明背景）
+
+## 运行
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # 开发模式 http://localhost:3000
+npm run build      # 生产构建
+npm run start      # 生产运行
+npm run lint       # 代码规范检查
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+首次打开会自动写入演示数据：1 个模特 + 35 件演示单品 + 当日 3 套推荐。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 部署（纯静态，零服务器成本）
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+项目已配置 `output: "export"`，`npm run build` 会生成纯静态产物 `out/`（约 1MB），可直接上传到 Cloudflare Pages / GitHub Pages / 任意静态托管。
 
-## Learn More
+- `public/_redirects` 已包含 `/outfit/:id` 的 200 重写到 `/outfit/?id=:id`，适配 Cloudflare Pages
+- Service Worker 在首次访问后缓存应用外壳，断网仍可换装和查看收藏
+- 本地预览静态产物：`node scripts/serve-static.mjs`（默认 http://localhost:4173）
 
-To learn more about Next.js, take a look at the following resources:
+## 验收清单（全部通过）
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. 打开 PWA
+2. 进入衣橱
+3. 查看 35 件演示衣服
+4. 进入换装间
+5. 看到人物模特
+6. 点击上衣 → 立即替换
+7. 点击下装 → 立即替换
+8. 点击鞋 → 立即替换
+9. 点击包 → 立即替换
+10. 收藏当前搭配
+11. 返回首页看到三套推荐
+12. 点击推荐进入详情
+13. 刷新页面数据仍在
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+自动化验证脚本见 `scripts/`（qa.mjs 主流程、qa-layout.mjs 图层几何、qa-assets.mjs 素材有效性、gen-icons.ps1 图标生成）。
 
-## Deploy on Vercel
+## 目录结构
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```text
+app/
+  page.tsx              首页（天气 Mock + 3 套 LOOK）
+  wardrobe/page.tsx     衣橱
+  dress/page.tsx        换装间（核心）
+  outfit/[id]/page.tsx  穿搭详情
+components/             换装渲染器、底部导航、弹层、图标等
+hooks/useAppData.tsx    全局数据层（IndexedDB 读写 + 每日推荐）
+lib/
+  types.ts              Domain Model
+  assets.ts             SVG 素材生成器（模特 + 单品）
+  seed.ts               演示数据（35 件单品）
+  db.ts                 IndexedDB 封装
+  recommendations.ts    规则推荐算法
+  outfitEngine.ts       换装逻辑（层级、互斥规则）
+  weather.ts            天气 Mock
+public/                 manifest、sw.js、图标
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 换装引擎要点
+
+- 统一 Standard Person Canvas：600 × 1200
+- 每件单品带 `anchor`（x/y/width/height，画布坐标），渲染时按比例换算，不依赖固定像素
+- 图层顺序：人物 → 下装 → 上衣 → 裙子 → 外套 → 鞋 → 包 → 配饰
+- 互斥规则：穿裙子清空上衣/下装；穿上衣或下装清空裙子
+- 替换单品只更新对应图层，不重载整个人物
+
+## 后续阶段（未开发）
+
+- Phase 5：AI 衣物识别 + 自动抠图（上传穿搭照 → 拆出透明单品）
+- Phase 6：真人 AI Virtual Try-On（任意照片自动换装）
+- 真实天气 API 接入点：`lib/weather.ts` 的 `getMockWeather()`
+- 真实模特照片：上传后生成 Standard Person Canvas 的流程
