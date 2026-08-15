@@ -30,7 +30,7 @@ const check = (name, ok, detail = "") => {
 // 1. 首页
 await page.goto(BASE, { waitUntil: "networkidle" });
 await page.waitForSelector("text=今日 LOOK", { timeout: 20000 });
-const lookCards = await page.locator('a[href^="/outfit/"]').count();
+const lookCards = await page.locator('a[href^="/outfit?"]').count();
 check("home: 3 look cards", lookCards === 3, `count=${lookCards}`);
 check("home: weather card", (await page.locator("text=体感").count()) > 0);
 check("home: model previews", (await page.locator('[data-testid="model-canvas"]').count()) === 3);
@@ -107,8 +107,8 @@ await shot("dress");
 
 // 5. 穿搭详情
 await page.goto(BASE, { waitUntil: "networkidle" });
-await page.waitForSelector('a[href^="/outfit/"]', { timeout: 15000 });
-await page.locator('a[href^="/outfit/"]').first().click();
+await page.waitForSelector('a[href^="/outfit?"]', { timeout: 15000 });
+await page.locator('a[href^="/outfit?"]').first().click();
 await page.waitForSelector("text=穿搭详情", { timeout: 15000 });
 await page.waitForSelector("text=搭配清单", { timeout: 15000 });
 const listRows = await page.locator("text=搭配清单").locator("xpath=../..").locator("div.flex.items-center").count();

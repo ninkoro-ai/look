@@ -40,7 +40,7 @@ npm run lint       # 代码规范检查
 
 项目已配置 `output: "export"`，`npm run build` 会生成纯静态产物 `out/`（约 1MB），可直接上传到 Cloudflare Pages / GitHub Pages / 任意静态托管。
 
-- `public/_redirects` 已包含 `/outfit/:id` 的 200 重写到 `/outfit/?id=:id`，适配 Cloudflare Pages
+- 穿搭详情使用查询参数链接 `/outfit?id=xxx`，在纯静态托管上无需服务端重写
 - Service Worker 在首次访问后缓存应用外壳，断网仍可换装和查看收藏
 - 本地预览静态产物：`node scripts/serve-static.mjs`（默认 http://localhost:4173）
 

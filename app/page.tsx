@@ -82,7 +82,7 @@ function HomePage() {
             return (
               <Link
                 key={rec.id}
-                href={`/outfit/${rec.outfit.id}`}
+                href={`/outfit?id=${rec.outfit.id}`}
                 prefetch={false}
                 className="flex items-center gap-4 rounded-[24px] border border-line bg-surface p-3 shadow-[0_2px_10px_rgba(42,36,32,0.04)] transition active:scale-[0.99]"
               >
