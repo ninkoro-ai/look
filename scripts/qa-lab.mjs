@@ -23,7 +23,7 @@ const dbCount = (store) =>
   page.evaluate(async (store) => {
     const open = () =>
       new Promise((resolve, reject) => {
-        const r = indexedDB.open("chuanda-walk-in-closet", 2);
+        const r = indexedDB.open("chuanda-walk-in-closet", 3);
         r.onsuccess = () => resolve(r.result);
         r.onerror = () => reject(r.error);
       });

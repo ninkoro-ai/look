@@ -1,5 +1,38 @@
 # CHANGELOG
 
+## Phase 6C — Real Wardrobe Asset Validation（2026-08-16）
+
+### 新增
+- 衣橱 onboarding 实验台 `/lab/wardrobe`（仅实验环境，不影响 `/app` 正式流程）：
+  - 两种上传方式：穿搭照片拆解（多件）/ 单品照片上传（单件）
+  - 识别结果人工确认：改名 / 改分类 / 删除恢复 / 加入衣橱
+  - Onboarding 统计：首次建立成功率、识别/整单耗时、类别与颜色准确率（样例比对）、修改/删除成本、继续添加率
+  - 事件 JSON 导出（仅行为指标，无照片/隐私字段）
+- 测试数据集：20 组（女生自拍穿搭×5 / 镜子自拍×5 / 衣架×5 / 平铺×5），全部为自绘演示 PNG：
+  - `lib/ai/wardrobe/dataset.ts`（数据集定义）
+  - `public/lab-samples/wardrobe/w01–w20.png`
+  - `scripts/gen-wardrobe-samples.mjs`（场景 SVG 生成脚本，PNG 由无头渲染栅格化）
+- 分析层：
+  - `lib/ai/wardrobe/analytics.ts`（统计与指标计算）
+  - `lib/db.ts`：IndexedDB 升到 v3，新增 `onboardingEvents` 存储（`OnboardingEvent`，仅事件不存图片）
+- 基准数据：`benchmarks/wardrobe-onboarding-20260816.json`
+- 报告：`PHASE_6C_REPORT.md`
+
+### 变更
+- `lib/types.ts`：`WardrobeItem` 增加可选 `subCategory`、`occasion` 字段（向后兼容，不做库迁移）
+- QA 脚本 IndexedDB 版本 2 → 3（qa / qa-lab / qa-import / qa-model / qa-wardrobe）
+- 新增 `scripts/qa-wardrobe.mjs`（衣橱实验台回归，11 项断言）
+
+### 实测（2026-08-16，自动化模拟会话）
+- 首次建立衣橱成功率：100%（模拟）
+- 平均识别耗时：2ms（Mock）；平均整单处理耗时：106ms（Mock，远低于 30s 目标）
+- 类别/颜色准确率：100%（Mock 演示数据，构造一致；真实准确率待 Beta 验证）
+- 平均修改 0.5 次/单、删除 0.5 件/单；继续添加率 100%（模拟）
+
+### 安全
+- onboarding 事件只记录行为指标（计数/耗时/类别），不含照片、姓名、手机号等隐私数据（QA 断言通过）
+- 未修改首页/衣橱/换装核心/推荐/VTON 架构；云端 VTON 维持默认关闭
+
 ## Phase 6B — 国内 VTON Provider Benchmark（2026-08-16）
 
 ### 新增

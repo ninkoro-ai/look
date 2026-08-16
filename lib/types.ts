@@ -58,6 +58,9 @@ export interface WardrobeItem {
   color?: string[];
   style?: string[];
   season?: string[];
+  /** Phase 6C：仅补充必要字段，保持向后兼容 */
+  subCategory?: string[];
+  occasion?: string[];
   layer: number;
   anchor?: Anchor;
   isFavorite?: boolean;

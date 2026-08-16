@@ -37,6 +37,11 @@ interface ChuanDaDB extends DBSchema {
     value: VtonTestRecord;
     indexes: { "by-created": string };
   };
+  onboardingEvents: {
+    key: string;
+    value: OnboardingEvent;
+    indexes: { "by-created": string };
+  };
 }
 
 export interface VtonTestRecord {
@@ -66,11 +71,43 @@ export interface VtonTestRecord {
   note?: string;
 }
 
+/**
+ * 衣橱 onboarding 分析事件。
+ * 只记录行为指标，绝不包含照片、缩略图、姓名、手机号等隐私数据。
+ */
+export type OnboardingEventType =
+  | "upload_started"
+  | "detect_completed"
+  | "review_updated"
+  | "import_started"
+  | "import_completed"
+  | "import_aborted";
+
+export interface OnboardingEvent {
+  id: string;
+  sessionId: string;
+  createdAt: string;
+  event: OnboardingEventType;
+  mode: "outfit" | "single";
+  caseId?: string;
+  scenario?: string;
+  detectedCount?: number;
+  confirmedCount?: number;
+  addedCount?: number;
+  deletedCount?: number;
+  modifiedCount?: number;
+  detectedCategories?: string[];
+  detectedColors?: string[];
+  aiMs?: number;
+  confirmMs?: number;
+  totalMs?: number;
+}
+
 let dbPromise: Promise<IDBPDatabase<ChuanDaDB>> | null = null;
 
 export function getDb(): Promise<IDBPDatabase<ChuanDaDB>> {
   if (!dbPromise) {
-    dbPromise = openDB<ChuanDaDB>("chuanda-walk-in-closet", 2, {
+    dbPromise = openDB<ChuanDaDB>("chuanda-walk-in-closet", 3, {
       upgrade(db) {
         if (!db.objectStoreNames.contains("models")) {
           db.createObjectStore("models", { keyPath: "id" });
@@ -92,6 +129,10 @@ export function getDb(): Promise<IDBPDatabase<ChuanDaDB>> {
         }
         if (!db.objectStoreNames.contains("vtonTests")) {
           const store = db.createObjectStore("vtonTests", { keyPath: "id" });
+          store.createIndex("by-created", "createdAt");
+        }
+        if (!db.objectStoreNames.contains("onboardingEvents")) {
+          const store = db.createObjectStore("onboardingEvents", { keyPath: "id" });
           store.createIndex("by-created", "createdAt");
         }
       },
@@ -211,6 +252,24 @@ export async function deleteVtonTest(id: string): Promise<void> {
 export async function clearVtonTests(): Promise<void> {
   const db = await getDb();
   const tx = db.transaction("vtonTests", "readwrite");
+  await tx.store.clear();
+  await tx.done;
+}
+
+export async function getAllOnboardingEvents(): Promise<OnboardingEvent[]> {
+  const db = await getDb();
+  const index = db.transaction("onboardingEvents").store.index("by-created");
+  return index.getAll();
+}
+
+export async function putOnboardingEvent(event: OnboardingEvent): Promise<void> {
+  const db = await getDb();
+  await db.put("onboardingEvents", event);
+}
+
+export async function clearOnboardingEvents(): Promise<void> {
+  const db = await getDb();
+  const tx = db.transaction("onboardingEvents", "readwrite");
   await tx.store.clear();
   await tx.done;
 }

@@ -1,0 +1,848 @@
+{
+  "exportedAt": "2026-08-16T07:48:17.661Z",
+  "dataset": "WARDROBE_VALIDATION_20",
+  "stats": {
+    "uploads": 22,
+    "uploadSessions": 1,
+    "successSessions": 1,
+    "firstWardrobeSuccessRate": 100,
+    "avgDetectMs": 2,
+    "avgImportTotalMs": 106,
+    "categoryAccuracy": 100,
+    "colorAccuracy": 100,
+    "avgModifiedCount": 0.5,
+    "avgDeletedCount": 0.5,
+    "continueAddRate": 100,
+    "abortedImports": 0
+  },
+  "events": [
+    {
+      "event": "upload_started",
+      "caseId": "w01",
+      "scenario": "女生自拍穿搭 01 · 日常牛仔",
+      "detectedCount": 0,
+      "id": "6a3b4a4a-e92d-4a51-a8a0-28f900b93bac",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:16.960Z",
+      "mode": "outfit"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w01",
+      "scenario": "女生自拍穿搭 01 · 日常牛仔",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 2,
+      "id": "dff3fae4-9cbf-4a3d-b921-3d121b2ee16f",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:16.970Z",
+      "mode": "outfit"
+    },
+    {
+      "event": "import_started",
+      "caseId": "w01",
+      "scenario": "女生自拍穿搭 01 · 日常牛仔",
+      "detectedCount": 5,
+      "confirmedCount": 4,
+      "deletedCount": 1,
+      "modifiedCount": 1,
+      "id": "99bc782d-de21-4446-bd5b-48498aa65f23",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.061Z",
+      "mode": "outfit"
+    },
+    {
+      "event": "import_completed",
+      "caseId": "w01",
+      "scenario": "女生自拍穿搭 01 · 日常牛仔",
+      "detectedCount": 5,
+      "confirmedCount": 4,
+      "addedCount": 4,
+      "deletedCount": 1,
+      "modifiedCount": 1,
+      "confirmMs": 90,
+      "totalMs": 137,
+      "id": "8dcf6886-ae2e-4715-a482-1cfb270c68f5",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.097Z",
+      "mode": "outfit"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w11",
+      "scenario": "衣架照片 01 · 外套挂拍",
+      "detectedCount": 0,
+      "id": "9663efa0-398a-45df-a9c3-0f6d61893267",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.226Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w11",
+      "scenario": "衣架照片 01 · 外套挂拍",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 2,
+      "id": "e60935aa-7831-4f0c-86fd-1d0cebf5b2eb",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.232Z",
+      "mode": "single"
+    },
+    {
+      "event": "import_started",
+      "caseId": "w11",
+      "scenario": "衣架照片 01 · 外套挂拍",
+      "detectedCount": 5,
+      "confirmedCount": 1,
+      "deletedCount": 0,
+      "modifiedCount": 0,
+      "id": "5c61467d-44d9-4e4a-8a1b-ad32dcc2e32e",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.278Z",
+      "mode": "single"
+    },
+    {
+      "event": "import_completed",
+      "caseId": "w11",
+      "scenario": "衣架照片 01 · 外套挂拍",
+      "detectedCount": 5,
+      "confirmedCount": 1,
+      "addedCount": 1,
+      "deletedCount": 0,
+      "modifiedCount": 0,
+      "confirmMs": 45,
+      "totalMs": 74,
+      "id": "877a8859-96a9-493b-8aa9-5805ebed18c4",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.299Z",
+      "mode": "single"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w01",
+      "scenario": "女生自拍穿搭 01 · 日常牛仔",
+      "detectedCount": 0,
+      "id": "eb04a84e-2e64-4a54-ab4f-2ee252822190",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.393Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w01",
+      "scenario": "女生自拍穿搭 01 · 日常牛仔",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 2,
+      "id": "0353e6c2-91cd-412b-9917-80622fd7860f",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.401Z",
+      "mode": "single"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w02",
+      "scenario": "女生自拍穿搭 02 · 通勤",
+      "detectedCount": 0,
+      "id": "618fc99e-ac28-45fb-8f3f-88203b84debe",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.404Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w02",
+      "scenario": "女生自拍穿搭 02 · 通勤",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 2,
+      "id": "300d766d-abe7-4446-b0fe-8b105158ba18",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.412Z",
+      "mode": "single"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w03",
+      "scenario": "女生自拍穿搭 03 · 休闲",
+      "detectedCount": 0,
+      "id": "eccaab53-0485-4878-b30d-591615a1cf2e",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.416Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w03",
+      "scenario": "女生自拍穿搭 03 · 休闲",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 2,
+      "id": "357da1c1-6cab-47d3-98e0-4415785ed292",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.423Z",
+      "mode": "single"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w04",
+      "scenario": "女生自拍穿搭 04 · 周末",
+      "detectedCount": 0,
+      "id": "5b528b15-8b7c-42c3-aae7-4cd68d1e7463",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.427Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w04",
+      "scenario": "女生自拍穿搭 04 · 周末",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 2,
+      "id": "edc14d45-c4db-405b-93b3-f7a32e6f5328",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.435Z",
+      "mode": "single"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w05",
+      "scenario": "女生自拍穿搭 05 · 出行",
+      "detectedCount": 0,
+      "id": "e2aa862f-9d2c-4030-a901-7783c712fb84",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.438Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w05",
+      "scenario": "女生自拍穿搭 05 · 出行",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 2,
+      "id": "a6b4300d-55da-4346-ab70-b660dc79367d",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.446Z",
+      "mode": "single"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w06",
+      "scenario": "镜子自拍 01 · 全身镜",
+      "detectedCount": 0,
+      "id": "f15a220a-4bb6-4847-8a24-0b120dda6ae0",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.450Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w06",
+      "scenario": "镜子自拍 01 · 全身镜",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 2,
+      "id": "918d99b8-58da-4df3-8654-8782ca1f0401",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.457Z",
+      "mode": "single"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w07",
+      "scenario": "镜子自拍 02 · 商场试衣镜",
+      "detectedCount": 0,
+      "id": "b9e075da-5367-4580-b769-32103e097c64",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.460Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w07",
+      "scenario": "镜子自拍 02 · 商场试衣镜",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 2,
+      "id": "3b08b60c-8064-4b04-8fe4-7b9fa7d40ae6",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.468Z",
+      "mode": "single"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w08",
+      "scenario": "镜子自拍 03 · 卧室全身镜",
+      "detectedCount": 0,
+      "id": "bbd1439e-83fb-48a2-8383-dee13ce35aef",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.471Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w08",
+      "scenario": "镜子自拍 03 · 卧室全身镜",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 2,
+      "id": "4afbe31c-3a5b-47ee-b316-163b49d786f2",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.478Z",
+      "mode": "single"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w09",
+      "scenario": "镜子自拍 04 · 门口镜",
+      "detectedCount": 0,
+      "id": "5d850857-5583-4424-a60f-cc9f79443f46",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.483Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w09",
+      "scenario": "镜子自拍 04 · 门口镜",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 2,
+      "id": "6b5488d2-cf44-471f-b285-4872eab004d6",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.491Z",
+      "mode": "single"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w10",
+      "scenario": "镜子自拍 05 · 试衣间",
+      "detectedCount": 0,
+      "id": "dec2c642-6de0-4b1a-a5ec-aa3b3f6703a0",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.497Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w10",
+      "scenario": "镜子自拍 05 · 试衣间",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 2,
+      "id": "06d95c31-cac2-4639-bc4b-fe333cb7676d",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.504Z",
+      "mode": "single"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w11",
+      "scenario": "衣架照片 01 · 外套挂拍",
+      "detectedCount": 0,
+      "id": "31cb87fb-883e-4a31-81d7-e47e1ec38565",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.507Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w11",
+      "scenario": "衣架照片 01 · 外套挂拍",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 3,
+      "id": "7ae5defa-4bf3-4ca0-8817-49df4f61b59d",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.515Z",
+      "mode": "single"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w12",
+      "scenario": "衣架照片 02 · 全套挂拍",
+      "detectedCount": 0,
+      "id": "7740fbca-9815-4d4d-8718-1f23da474796",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.519Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w12",
+      "scenario": "衣架照片 02 · 全套挂拍",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 2,
+      "id": "c6b5574e-048d-4135-bc3d-7e54d3f5afed",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.526Z",
+      "mode": "single"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w13",
+      "scenario": "衣架照片 03 · 衣柜内部",
+      "detectedCount": 0,
+      "id": "9258cf37-a622-4915-92e0-5809244c1976",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.531Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w13",
+      "scenario": "衣架照片 03 · 衣柜内部",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 2,
+      "id": "bdf5d0ad-cf25-45cf-9aa1-9c182e61d6a6",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.538Z",
+      "mode": "single"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w14",
+      "scenario": "衣架照片 04 · 阳台晾挂",
+      "detectedCount": 0,
+      "id": "e45fcdd4-91e9-4c06-9801-540292bd5e19",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.541Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w14",
+      "scenario": "衣架照片 04 · 阳台晾挂",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 2,
+      "id": "c07b2c9c-6def-44f5-85fb-6b0679757386",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.550Z",
+      "mode": "single"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w15",
+      "scenario": "衣架照片 05 · 店铺挂拍",
+      "detectedCount": 0,
+      "id": "0e7505d5-e613-4c7f-b84f-61bf9879e3ed",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.553Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w15",
+      "scenario": "衣架照片 05 · 店铺挂拍",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 2,
+      "id": "96b32117-e66d-4450-bbbc-262e94bec9d5",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.560Z",
+      "mode": "single"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w16",
+      "scenario": "平铺照片 01 · 床上平铺",
+      "detectedCount": 0,
+      "id": "6169bf7b-5583-4b4c-a61e-d986e9f2d4f1",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.565Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w16",
+      "scenario": "平铺照片 01 · 床上平铺",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 2,
+      "id": "e13747d4-6452-4e98-922c-f30a7b0e3b39",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.572Z",
+      "mode": "single"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w17",
+      "scenario": "平铺照片 02 · 地面平铺",
+      "detectedCount": 0,
+      "id": "c2c7b78f-a9c8-4a95-9c37-b70dced38a98",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.575Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w17",
+      "scenario": "平铺照片 02 · 地面平铺",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 2,
+      "id": "9f375fb1-eab7-4070-90fb-eb4e93f9dad2",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.583Z",
+      "mode": "single"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w18",
+      "scenario": "平铺照片 03 · 桌面平铺",
+      "detectedCount": 0,
+      "id": "78211558-d9ef-4009-b3e1-c8e93e8c69bb",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.586Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w18",
+      "scenario": "平铺照片 03 · 桌面平铺",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 1,
+      "id": "791e0639-1741-484e-81e5-5bad8256b8d3",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.593Z",
+      "mode": "single"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w19",
+      "scenario": "平铺照片 04 · 沙发平铺",
+      "detectedCount": 0,
+      "id": "3b519449-870b-43b6-a432-4d52532557b5",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.599Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w19",
+      "scenario": "平铺照片 04 · 沙发平铺",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 2,
+      "id": "f39e0be7-44bf-4ca9-ad60-00d2ecf41bb0",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.610Z",
+      "mode": "single"
+    },
+    {
+      "event": "upload_started",
+      "caseId": "w20",
+      "scenario": "平铺照片 05 · 购物袋平铺",
+      "detectedCount": 0,
+      "id": "dddd9736-4447-41f6-beec-2842fea0d595",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.617Z",
+      "mode": "single"
+    },
+    {
+      "event": "detect_completed",
+      "caseId": "w20",
+      "scenario": "平铺照片 05 · 购物袋平铺",
+      "detectedCount": 5,
+      "detectedCategories": [
+        "outerwear",
+        "top",
+        "bottom",
+        "shoes",
+        "bag"
+      ],
+      "detectedColors": [
+        "blue",
+        "white",
+        "black",
+        "white",
+        "black"
+      ],
+      "aiMs": 2,
+      "id": "f5bc3ca8-9c63-4f97-9fe2-27580c79a465",
+      "sessionId": "s-1786866496309-lac70tn8",
+      "createdAt": "2026-08-16T07:48:17.624Z",
+      "mode": "single"
+    }
+  ]
+}
