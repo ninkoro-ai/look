@@ -12,6 +12,8 @@ import { uid } from "@/lib/format";
 import { emptyOutfit, slotFor, toggleItem } from "@/lib/outfitEngine";
 import { useAppData } from "@/hooks/useAppData";
 import { track } from "@/lib/beta/track";
+import { isBetaUser } from "@/lib/beta/storage";
+import { vtonBetaEnabled } from "@/lib/ai/config";
 import type { Category, Outfit } from "@/lib/types";
 
 function DressRoom() {
@@ -20,13 +22,20 @@ function DressRoom() {
   const editId = searchParams.get("outfit");
   const { show, toast } = useToast();
 
-  useEffect(() => {
-    void track("dress_page_viewed", { page: "dress" });
-  }, []);
-
   const [outfit, setOutfit] = useState<Outfit | null>(null);
   const [category, setCategory] = useState<Category>("top");
   const [modelSheetOpen, setModelSheetOpen] = useState(false);
+  const [vtonHealth, setVtonHealth] = useState<{ configured: boolean } | null>(null);
+
+  useEffect(() => {
+    void track("dress_page_viewed", { page: "dress" });
+    fetch("/api/vton/health")
+      .then((r) => r.json())
+      .then((d) => setVtonHealth(d as typeof vtonHealth))
+      .catch(() => setVtonHealth(null));
+  }, []);
+
+  const showTryOn = isBetaUser() && vtonBetaEnabled() && vtonHealth?.configured === true;
 
   // 渲染期初始化：数据就绪后自动载入初始搭配
   if (!outfit) {
@@ -121,6 +130,16 @@ function DressRoom() {
           <IconHeart width={18} height={18} />
           收藏这套
         </button>
+
+        {showTryOn && (
+          <Link
+            href="/tryon"
+            prefetch={false}
+            className="mt-3 flex w-full items-center justify-center gap-2 rounded-full bg-ink py-3.5 text-[15px] font-medium text-white shadow-[0_8px_20px_rgba(42,36,32,0.22)] transition active:scale-[0.98]"
+          >
+            ✨ AI 真实试穿
+          </Link>
+        )}
 
         {currentItems.length > 0 && (
           <div className="mt-5 flex flex-wrap gap-2">

@@ -6,6 +6,7 @@ import {
   randomFileName,
   uploadToOss,
   validateImage,
+  vtonBetaGate,
   type PagesFunction,
   type VtonEnv,
 } from "./_lib";
@@ -16,11 +17,12 @@ import {
  * API Key 永不进入浏览器。
  */
 export const onRequestPost: PagesFunction<VtonEnv> = async ({ request, env }) => {
-  if (!env.DASHSCOPE_API_KEY) {
-    return json({ errorCode: "AUTH_ERROR", errorMessage: "服务端未配置 DASHSCOPE_API_KEY" }, { status: 503 });
-  }
-  if (env.VTON_ALLOW_ALIBABA !== "true") {
-    return json({ errorCode: "PROVIDER_ERROR", errorMessage: "云端 VTON 未启用" }, { status: 403 });
+  const gate = vtonBetaGate(env);
+  if (gate) {
+    return json(
+      { errorCode: gate, errorMessage: gate === "AUTH_ERROR" ? "服务端未配置 DASHSCOPE_API_KEY" : "AI真实试穿 Beta 功能未启用" },
+      { status: gate === "AUTH_ERROR" ? 503 : 403 },
+    );
   }
 
   let body: { image?: string; kind?: "person" | "garment" };
@@ -37,7 +39,8 @@ export const onRequestPost: PagesFunction<VtonEnv> = async ({ request, env }) =>
   if (err) return json({ errorCode: "IMAGE_ERROR", errorMessage: err }, { status: 400 });
 
   try {
-    const policy = await getUploadPolicy(env.DASHSCOPE_API_KEY);
+    const apiKey = env.DASHSCOPE_API_KEY as string;
+    const policy = await getUploadPolicy(apiKey);
     const ext = decoded.mime === "image/png" ? "png" : "jpg";
     const url = await uploadToOss(policy, randomFileName(ext), decoded.bytes);
     return json({

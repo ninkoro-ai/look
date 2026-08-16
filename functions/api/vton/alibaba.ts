@@ -8,22 +8,18 @@ import {
   randomFileName,
   uploadToOss,
   validateImage,
+  vtonBetaGate,
   type VtonEnv,
 } from "./_lib";
 
 const ALLOWED_CATEGORIES = new Set(["top", "outerwear", "bottom", "dress"]);
 
 export const onRequestPost: PagesFunction<VtonEnv> = async ({ request, env }) => {
-  if (!env.DASHSCOPE_API_KEY) {
+  const gate = vtonBetaGate(env);
+  if (gate) {
     return json(
-      { errorCode: "AUTH_ERROR", errorMessage: "服务端未配置 DASHSCOPE_API_KEY，阿里云 VTON 不可用" },
-      { status: 503 },
-    );
-  }
-  if (env.VTON_ALLOW_ALIBABA !== "true") {
-    return json(
-      { errorCode: "PROVIDER_ERROR", errorMessage: "服务端未启用 VTON_ALLOW_ALIBABA=true，云端 VTON 默认关闭" },
-      { status: 403 },
+      { errorCode: gate, errorMessage: gate === "AUTH_ERROR" ? "服务端未配置 DASHSCOPE_API_KEY" : "AI真实试穿 Beta 功能未启用" },
+      { status: gate === "AUTH_ERROR" ? 503 : 403 },
     );
   }
 
@@ -49,12 +45,13 @@ export const onRequestPost: PagesFunction<VtonEnv> = async ({ request, env }) =>
   if (garmentErr) return json({ errorCode: "IMAGE_ERROR", errorMessage: `服饰图：${garmentErr}` }, { status: 400 });
 
   try {
-    const policy = await getUploadPolicy(env.DASHSCOPE_API_KEY);
+    const apiKey = env.DASHSCOPE_API_KEY as string;
+    const policy = await getUploadPolicy(apiKey);
     const ext = person.mime === "image/png" ? "png" : "jpg";
     const garmentExt = garment.mime === "image/png" ? "png" : "jpg";
     const personUrl = await uploadToOss(policy, randomFileName(ext), person.bytes);
     const garmentUrl = await uploadToOss(policy, randomFileName(garmentExt), garment.bytes);
-    const task = await createTryOnTask(env.DASHSCOPE_API_KEY, personUrl, garmentUrl, category);
+    const task = await createTryOnTask(apiKey, personUrl, garmentUrl, category);
     return json({
       taskId: task.taskId,
       status: task.status,

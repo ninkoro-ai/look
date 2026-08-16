@@ -68,6 +68,10 @@ export interface VtonTestRecord {
   errorCode?: string;
   /** 6B.1 阿里云基准：单一人工质量分 1~5 */
   qualityScore?: number;
+  /** 6E：AI真实试穿结果是否被用户收藏 */
+  favorite?: boolean;
+  /** 6E：结果保存去向（收藏 / 加入我的穿搭） */
+  savedTo?: "favorite" | "outfit";
   quality?: {
     face: number;
     body: number;

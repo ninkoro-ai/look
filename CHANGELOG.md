@@ -1,5 +1,34 @@
 # CHANGELOG
 
+## Phase 6E — AI Try-On Value Validation（2026-08-16）
+
+### 新增
+- 功能开关：`VTON_BETA_ENABLED`（服务端门禁）+ `NEXT_PUBLIC_VTON_BETA_ENABLED`（构建期前端开关），真实 AI试穿仅 Beta 用户开放
+- Beta 用户 AI 入口：换装间「✨ AI真实试穿」按钮（Beta + 开关 + 服务端就绪三条件，普通用户不可见）
+- 产品页 `/tryon`：AI 真实试穿全流程
+  - 选衣（top/outerwear/dress）→ 等待（三段式文案，不暴露 Provider/API）→ 结果（原图+AI 图）
+  - 操作：❤️ 收藏 / 🔄 再试一次 / 📂 加入我的穿搭 / 👍 有帮助 / 👎 没帮助 / 1~5 星评分
+  - 付费意愿问卷（A 愿意 / B 看价格 / C 不需要）
+  - 失败处理：API 失败「生成失败，请稍后重试」、图片不合适「建议上传：正面全身照片」、超时自动重试一次
+- Beta 事件扩展：`vton_started / vton_completed / vton_rated / vton_saved / vton_retry / vton_pay_intent`
+- 指标统计：`computeVtonMetrics`（次数/成功率/平均耗时/平均成本/平均评分/二次生成率/收藏率/付费意愿分布）
+- 看板 `/lab/vton/beta`：实时指标 + 成本监控 + 导出 `vton-cost-report.json`（含 10 用户月成本估算）
+- 服务端门禁：upload/tryon/status/alibaba 端点统一走 `vtonBetaGate`（Key + Beta 开关 + Allow 开关）
+- 报告：`PHASE_6E_REPORT.md`
+
+### 变更
+- `lib/db.ts`：`VtonTestRecord` 增加 `favorite`、`savedTo` 字段（向后兼容）
+- `app/dress/page.tsx`：换装间加入口（仅 Beta + 服务端就绪时显示）
+
+### 实测
+- 模拟：Beta 建衣橱 → 选衣 → 生成（无 Key 优雅失败）→ 事件/看板/成本导出全部跑通
+- 真实 AI 生成与真人价值数据待 `DASHSCOPE_API_KEY` + 10 名测试用户
+
+### 安全
+- Key 仅服务端；AI 试穿入口普通用户不可见；云端默认关闭；结果/事件仅行为统计、无照片
+- 回归全过：qa 16/16 · qa-lab 13/13 · qa-wardrobe 11/11 · qa-import 13/13 · qa-model 10/10 · qa-beta 16/16 · qa-alibaba 8/8 · qa-tryon 9/9
+
+## Phase 6B.1 — Alibaba DashScope AITryOn Integration（2026-08-16）
 ## Phase 6B.1 — Alibaba DashScope AITryOn Integration（2026-08-16）
 
 ### 新增

@@ -4,24 +4,27 @@ import {
   mapErrorCode,
   type PagesFunction,
   queryTask,
+  vtonBetaGate,
   type VtonEnv,
 } from "./_lib";
 
 const TERMINAL_FAILED = new Set(["FAILED", "UNKNOWN", "CANCELED"]);
 
 export const onRequestGet: PagesFunction<VtonEnv> = async ({ request, env }) => {
-  if (!env.DASHSCOPE_API_KEY) {
-    return json({ errorCode: "AUTH_ERROR", errorMessage: "服务端未配置 DASHSCOPE_API_KEY" }, { status: 503 });
-  }
-  if (env.VTON_ALLOW_ALIBABA !== "true") {
-    return json({ errorCode: "PROVIDER_ERROR", errorMessage: "云端 VTON 未启用" }, { status: 403 });
+  const gate = vtonBetaGate(env);
+  if (gate) {
+    return json(
+      { errorCode: gate, errorMessage: gate === "AUTH_ERROR" ? "服务端未配置 DASHSCOPE_API_KEY" : "AI真实试穿 Beta 功能未启用" },
+      { status: gate === "AUTH_ERROR" ? 503 : 403 },
+    );
   }
   const taskId = new URL(request.url).searchParams.get("taskId");
   if (!taskId) {
     return json({ errorCode: "INVALID_INPUT", errorMessage: "缺少 taskId" }, { status: 400 });
   }
   try {
-    const task = await queryTask(env.DASHSCOPE_API_KEY, taskId);
+    const apiKey = env.DASHSCOPE_API_KEY as string;
+    const task = await queryTask(apiKey, taskId);
     if (task.status === "SUCCEEDED") {
       if (!task.imageUrl) {
         return json({ errorCode: "PROVIDER_ERROR", errorMessage: "任务成功但缺少 image_url" }, { status: 502 });

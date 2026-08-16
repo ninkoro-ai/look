@@ -9,6 +9,8 @@ function envVar(name: string): string | undefined {
       return process.env.NEXT_PUBLIC_AI_PROVIDER;
     case "NEXT_PUBLIC_ENABLE_LAB":
       return process.env.NEXT_PUBLIC_ENABLE_LAB;
+    case "NEXT_PUBLIC_VTON_BETA_ENABLED":
+      return process.env.NEXT_PUBLIC_VTON_BETA_ENABLED;
     case "NEXT_PUBLIC_OPENAI_API_KEY":
       return process.env.NEXT_PUBLIC_OPENAI_API_KEY;
     case "NEXT_PUBLIC_REPLICATE_API_TOKEN":
@@ -29,6 +31,11 @@ export function aiProviderMode(): "mock" | "real" {
 export function labEnabled(): boolean {
   if (envVar("NEXT_PUBLIC_ENABLE_LAB") === "true") return true;
   return envVar("NODE_ENV") === "development";
+}
+
+/** 产品内「AI真实试穿」入口开关（构建期注入；服务端另有 VTON_BETA_ENABLED 门禁） */
+export function vtonBetaEnabled(): boolean {
+  return envVar("NEXT_PUBLIC_VTON_BETA_ENABLED") === "true";
 }
 
 export function getApiKey(name: ApiKeyName): string | undefined {

@@ -23,6 +23,25 @@ export interface BetaMetrics {
   deletedDataCount: number;
 }
 
+/** Phase 6E：AI真实试穿价值指标（仅行为统计） */
+export interface VtonMetrics {
+  users: number;
+  started: number;
+  completed: number;
+  successRate: number;
+  avgDurationMs: number;
+  avgCostUsd: number;
+  avgCostCny: number;
+  totalCostCny: number;
+  avgRating: number | null;
+  ratedCount: number;
+  retryRate: number;
+  retries: number;
+  saveCount: number;
+  saveRate: number;
+  payIntent: { A: number; B: number; C: number };
+}
+
 function dayOffsetMs(createdAt: string, base: number): number {
   const t = new Date(createdAt).getTime();
   if (Number.isNaN(t)) return -1;
@@ -133,5 +152,60 @@ export function computeBetaMetrics(
     vtonClickRate: pct(vtonUsers.size, total),
     feedback,
     deletedDataCount: events.filter((e) => e.event === "beta_data_deleted").length,
+  };
+}
+
+export function computeVtonMetrics(events: BetaEventRecord[]): VtonMetrics {
+  const started = events.filter((e) => e.event === "vton_started");
+  const completed = events.filter((e) => e.event === "vton_completed" && e.success === true);
+  const rated = events.filter((e) => e.event === "vton_rated" && typeof e.score === "number");
+  const saves = events.filter((e) => e.event === "vton_saved");
+  const retries = events.filter((e) => e.event === "vton_retry").length;
+  const pay = events.filter((e) => e.event === "vton_pay_intent");
+  const payIntent = { A: 0, B: 0, C: 0 };
+  for (const e of pay) {
+    if (e.payChoice === "A") payIntent.A++;
+    else if (e.payChoice === "B") payIntent.B++;
+    else if (e.payChoice === "C") payIntent.C++;
+  }
+
+  const startedUsers = new Set(started.map((e) => e.betaUserId));
+  const secondTimeUsers = new Set<string>();
+  const perUser = new Map<string, number>();
+  for (const e of started) {
+    perUser.set(e.betaUserId, (perUser.get(e.betaUserId) ?? 0) + 1);
+    if ((perUser.get(e.betaUserId) ?? 0) >= 2) secondTimeUsers.add(e.betaUserId);
+  }
+
+  const durations = completed.map((e) => e.durationMs ?? 0).filter((n) => n > 0);
+  const costsUsd = completed.map((e) => e.costEstimateUsd ?? 0);
+  const costsCny = completed.map((e) => e.costEstimateCny ?? 0);
+  const scores = rated.map((e) => e.score ?? 0);
+
+  return {
+    users: new Set(events.filter((e) => e.event.startsWith("vton_")).map((e) => e.betaUserId)).size,
+    started: started.length,
+    completed: completed.length,
+    successRate: started.length > 0 ? (completed.length / started.length) * 100 : 0,
+    avgDurationMs: durations.length
+      ? Math.round(durations.reduce((a, b) => a + b, 0) / durations.length)
+      : 0,
+    avgCostUsd: costsUsd.length
+      ? Math.round((costsUsd.reduce((a, b) => a + b, 0) / costsUsd.length) * 1000) / 1000
+      : 0,
+    avgCostCny: costsCny.length
+      ? Math.round((costsCny.reduce((a, b) => a + b, 0) / costsCny.length) * 100) / 100
+      : 0,
+    totalCostCny: Math.round(costsCny.reduce((a, b) => a + b, 0) * 100) / 100,
+    avgRating: scores.length
+      ? Math.round((scores.reduce((a, b) => a + b, 0) / scores.length) * 100) / 100
+      : null,
+    ratedCount: rated.length,
+    retryRate:
+      startedUsers.size > 0 ? (secondTimeUsers.size / startedUsers.size) * 100 : 0,
+    retries,
+    saveCount: saves.length,
+    saveRate: completed.length > 0 ? (saves.length / completed.length) * 100 : 0,
+    payIntent,
   };
 }

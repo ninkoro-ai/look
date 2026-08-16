@@ -10,6 +10,12 @@ export type BetaEventName =
   | "dress_page_viewed"
   | "outfit_favorited"
   | "vton_clicked"
+  | "vton_started"
+  | "vton_completed"
+  | "vton_rated"
+  | "vton_saved"
+  | "vton_retry"
+  | "vton_pay_intent"
   | "feedback_submitted"
   | "beta_data_deleted";
 
@@ -25,4 +31,14 @@ export interface BetaEventRecord {
   feedback?: "like" | "neutral" | "dislike";
   feedbackText?: string;
   page?: string;
+  /** AI 试穿相关字段（仅行为统计） */
+  provider?: string;
+  durationMs?: number;
+  costEstimateUsd?: number;
+  costEstimateCny?: number;
+  success?: boolean;
+  score?: number;
+  helpful?: boolean;
+  savedTo?: "favorite" | "outfit";
+  payChoice?: "A" | "B" | "C";
 }

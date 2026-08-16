@@ -6,6 +6,7 @@
 export interface VtonEnv {
   DASHSCOPE_API_KEY?: string;
   VTON_ALLOW_ALIBABA?: string;
+  VTON_BETA_ENABLED?: string;
 }
 
 /** 兼容 Cloudflare Pages Functions 的上下文类型（项目未安装 workers-types，本地定义避免全局依赖） */
@@ -51,6 +52,18 @@ export function json(data: unknown, init?: ResponseInit): Response {
 
 export function alibabaEnabled(env: VtonEnv): boolean {
   return Boolean(env.DASHSCOPE_API_KEY) && env.VTON_ALLOW_ALIBABA === "true";
+}
+
+/**
+ * 6E 门禁：真实 AI试穿仅对 Beta 开放。
+ * 需 Key + VTON_BETA_ENABLED=true + VTON_ALLOW_ALIBABA=true 三者同时满足。
+ * 返回错误码字符串表示被拒绝；返回 null 表示放行。
+ */
+export function vtonBetaGate(env: VtonEnv): string | null {
+  if (!env.DASHSCOPE_API_KEY) return "AUTH_ERROR";
+  if (env.VTON_BETA_ENABLED !== "true") return "PROVIDER_ERROR";
+  if (env.VTON_ALLOW_ALIBABA !== "true") return "PROVIDER_ERROR";
+  return null;
 }
 
 function pick(obj: Record<string, unknown>, ...keys: string[]): string {
