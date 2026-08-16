@@ -34,17 +34,19 @@ function clamp(v: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, v));
 }
 
-export interface StandardizedModel {
+export interface ModelPhoto {
   dataUrl: string;
   body: ModelBody;
   warnings: string[];
 }
 
 /**
- * 人体检测 → 全身裁剪 → 归一化到 600×1200 标准画布。
- * 返回透明背景 PNG 与体型关键点（画布坐标系）。
+ * 模特照片标准化：人体检测 → 全身裁剪 → 归一化到 600×1200 标准画布。
+ * 注意：这是「模特照片」（人像裁切，仍保留原照片中的服装），
+ * 不是「透明衣物素材」；衣物资产的提取见 lib/ai/。
+ * 返回照片 PNG 与体型关键点（画布坐标系）。
  */
-export async function detectAndStandardize(image: HTMLImageElement): Promise<StandardizedModel> {
+export async function standardizeModelPhoto(image: HTMLImageElement): Promise<ModelPhoto> {
   const landmarker = await getPoseLandmarker();
   const result = landmarker.detect(image);
   const lm = result.landmarks[0];

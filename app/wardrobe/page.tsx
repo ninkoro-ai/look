@@ -1,8 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
 import { BottomSheet } from "@/components/BottomSheet";
-import { IconHeart, IconPlus, IconTrash, IconUpload, IconX } from "@/components/icons";
+import { IconCamera, IconHeart, IconPlus, IconTrash, IconUpload, IconX } from "@/components/icons";
 import { useToast } from "@/components/Toast";
 import { CATEGORY_LABELS, CATEGORY_ORDER, LAYER_BY_CATEGORY } from "@/lib/constants";
 import { uid } from "@/lib/format";
@@ -138,6 +139,21 @@ export default function WardrobePage() {
           </button>
         </div>
       </header>
+
+      <Link
+        href="/import"
+        prefetch={false}
+        className="mx-5 mt-3 flex items-center gap-3 rounded-2xl bg-ink px-4 py-3 text-white shadow-[0_8px_20px_rgba(42,36,32,0.18)] transition active:scale-[0.99]"
+      >
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/15">
+          <IconCamera width={18} height={18} />
+        </span>
+        <span className="flex-1">
+          <span className="block text-[14px] font-medium">从穿搭照片添加</span>
+          <span className="block text-[11px] text-white/60">AI 自动识别上衣、外套、裤子等单品</span>
+        </span>
+        <span className="text-white/60">›</span>
+      </Link>
 
       <div className="mt-2 flex gap-2 overflow-x-auto no-scrollbar px-5">
         {FILTERS.map((f) => (

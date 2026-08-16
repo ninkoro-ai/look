@@ -40,12 +40,21 @@ export interface Anchor {
   height: number;
 }
 
+export type GarmentSource = "demo" | "manual" | "photo-extraction";
+
 export interface WardrobeItem {
   id: string;
   category: Category;
   name: string;
   imageUrl: string;
   transparentImageUrl?: string;
+  source?: GarmentSource;
+  originalImageUrl?: string;
+  maskUrl?: string;
+  aiMetadata?: {
+    confidence?: number;
+    detectedCategory?: string;
+  };
   color?: string[];
   style?: string[];
   season?: string[];
@@ -53,6 +62,36 @@ export interface WardrobeItem {
   anchor?: Anchor;
   isFavorite?: boolean;
   createdAt: string;
+}
+
+export interface BoundingBox {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+/** AI 从穿搭照中识别出的单个服装单品 */
+export interface DetectedGarment {
+  id: string;
+  category: Category;
+  name: string;
+  confidence: number;
+  boundingBox: BoundingBox;
+  attributes?: {
+    color?: string[];
+    style?: string[];
+    season?: string[];
+  };
+}
+
+/** 提取完成、可加入衣橱的透明衣物资产 */
+export interface ExtractedGarment {
+  detected: DetectedGarment;
+  originalCropUrl: string;
+  transparentImageUrl: string;
+  maskUrl?: string;
+  suggestedAnchor?: Anchor;
 }
 
 export interface Outfit {

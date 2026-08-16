@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { BottomSheet } from "@/components/BottomSheet";
 import { IconCamera, IconRefresh } from "@/components/icons";
 import { demoUserModel } from "@/lib/seed";
-import { detectAndStandardize, type StandardizedModel } from "@/lib/pose";
+import { standardizeModelPhoto, type ModelPhoto } from "@/lib/pose";
 import { useAppData } from "@/hooks/useAppData";
 
 type Phase = "menu" | "detecting" | "preview" | "error";
@@ -19,7 +19,7 @@ export function ModelSheet({ open, onClose, onUpdated }: ModelSheetProps) {
   const { userModel, replaceUserModel } = useAppData();
   const fileRef = useRef<HTMLInputElement>(null);
   const [phase, setPhase] = useState<Phase>("menu");
-  const [preview, setPreview] = useState<StandardizedModel | null>(null);
+  const [preview, setPreview] = useState<ModelPhoto | null>(null);
   const [error, setError] = useState("");
 
   const reset = () => {
@@ -43,7 +43,7 @@ export function ModelSheet({ open, onClose, onUpdated }: ModelSheetProps) {
         const img = new Image();
         img.src = String(reader.result);
         await img.decode();
-        const result = await detectAndStandardize(img);
+        const result = await standardizeModelPhoto(img);
         setPreview(result);
         setPhase("preview");
       } catch (e) {
