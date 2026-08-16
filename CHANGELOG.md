@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## Phase 6F Demo — Real Human Try-On Demo（2026-08-16）
+
+### 新增
+- Demo 页 `/demo/real-tryon`（公开演示，不影响正式产品）：
+  - 3 位虚拟模特（25 日常休闲 / 28 通勤职业 / 23 年轻甜美）
+  - 10 件透明衣物 PNG（上衣×5 / 外套×2 / 裙子×2 / 裤子×1）
+  - 选模特 → 选衣 → ✨ AI 试穿 → Before/After 对比
+  - 展示：生成耗时、Provider（Alibaba AITryOn / Local Segmentation 回退）、成本估算（¥0.2 / ¥0）
+- 素材：`public/demo/real-tryon/{models,garments}`；生成脚本 `scripts/gen-demo-assets.mjs`；数据定义 `lib/demo/tryonDemo.ts`
+- QA：`scripts/qa-demo.mjs`（7 项断言）
+- 报告：`PHASE_6F_DEMO_REPORT.md`
+
+### 说明
+- 模特暂用项目自有真人样例（本会话无图像生成工具）；衣物由自有矢量资产栅格化为透明 PNG
+- 云端未开启时自动回退本地人像分割，Demo 始终可演示
+
+### 安全/回归
+- 不影响正式衣橱、用户数据、Beta 系统、原 Demo 数据
+- 回归：qa-demo 7/7 · qa 16/16 · qa-lab 13/13 · qa-wardrobe 11/11 · qa-import 13/13 · qa-model 10/10 · qa-beta 16/16 · qa-alibaba 8/8 · qa-tryon 9/9
+
+## Phase 6F.0 — Alibaba AITryOn Production Connection（2026-08-16）
 ## Phase 6F.0 — Alibaba AITryOn Production Connection（2026-08-16）
 
 ### 配置
