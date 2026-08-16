@@ -8,6 +8,14 @@ import {
 } from "./_lib";
 
 const ALLOWED_CATEGORIES = new Set(["top", "outerwear", "bottom", "dress"]);
+const DAILY_TRYON_LIMIT = 3;
+
+/** 6F.0 成本保护：每 clientId 每日最多 3 次（优先 KV，未绑定 KV 时按实例内存计数） */
+const dailyTryonCounts = new Map<string, number>();
+
+function dayKey(): string {
+  return new Date().toISOString().slice(0, 10);
+}
 
 /**
  * 用已上传的公网 URL 创建 aitryon 异步试衣任务。
@@ -21,7 +29,7 @@ export const onRequestPost: PagesFunction<VtonEnv> = async ({ request, env }) =>
     );
   }
 
-  let body: { personImageUrl?: string; garmentImageUrl?: string; garmentCategory?: string; benchmarkId?: string };
+  let body: { personImageUrl?: string; garmentImageUrl?: string; garmentCategory?: string; benchmarkId?: string; clientId?: string };
   try {
     body = (await request.json()) as typeof body;
   } catch {
@@ -33,6 +41,28 @@ export const onRequestPost: PagesFunction<VtonEnv> = async ({ request, env }) =>
   }
   if (!body.personImageUrl || !body.garmentImageUrl) {
     return json({ errorCode: "INVALID_INPUT", errorMessage: "缺少 personImageUrl / garmentImageUrl" }, { status: 400 });
+  }
+
+  // 成本保护：先于上游调用检查，避免超限产生云端消耗
+  const clientKey = `${body.clientId ?? "anonymous"}:${dayKey()}`;
+  let used = 0;
+  if (env.VTON_QUOTA) {
+    try {
+      const raw = await env.VTON_QUOTA.get(clientKey);
+      used = raw ? parseInt(raw, 10) || 0 : 0;
+    } catch {
+      used = 0;
+    }
+  } else {
+    used = dailyTryonCounts.get(clientKey) ?? 0;
+  }
+  if (used >= DAILY_TRYON_LIMIT) {
+    return json({ errorCode: "RATE_LIMIT", errorMessage: "今日AI试穿次数已用完" }, { status: 429 });
+  }
+  if (env.VTON_QUOTA) {
+    await env.VTON_QUOTA.put(clientKey, String(used + 1), { expirationTtl: 86_400 }).catch(() => {});
+  } else {
+    dailyTryonCounts.set(clientKey, used + 1);
   }
 
   try {

@@ -1,0 +1,12 @@
+{
+  "provider": "alibaba",
+  "timestamp": "2026-08-16T08:47:24.769Z",
+  "success": true,
+  "duration_ms": 180977,
+  "cost_estimate": "0.2",
+  "task_id": "f909e879-a643-4215-b4a6-668d10947d57",
+  "status": "SUCCEEDED",
+  "error_code": null,
+  "error": null,
+  "wall_time_ms": 181185
+}

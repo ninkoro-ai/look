@@ -7,6 +7,11 @@ export interface VtonEnv {
   DASHSCOPE_API_KEY?: string;
   VTON_ALLOW_ALIBABA?: string;
   VTON_BETA_ENABLED?: string;
+  /** 可选 KV 绑定（生产建议启用，用于每日限额持久化；未绑定时回退实例内存计数） */
+  VTON_QUOTA?: {
+    get(key: string): Promise<string | null>;
+    put(key: string, value: string, opts?: { expirationTtl?: number }): Promise<void>;
+  };
 }
 
 /** 兼容 Cloudflare Pages Functions 的上下文类型（项目未安装 workers-types，本地定义避免全局依赖） */

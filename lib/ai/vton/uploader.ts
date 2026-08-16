@@ -70,6 +70,23 @@ export async function blobToDataUrl(blob: Blob): Promise<string> {
 }
 
 /**
+ * 成本保护用的客户端标识：Beta 用户用 betaUserId，其余用本地随机 ID。
+ * 仅用于服务端每日限额统计，不含任何身份信息。
+ */
+export function vtonClientId(): string {
+  try {
+    if (typeof window === "undefined") return "anonymous";
+    const existing = window.localStorage.getItem("chuanda-vton-client");
+    if (existing) return existing;
+    const id = `c-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+    window.localStorage.setItem("chuanda-vton-client", id);
+    return id;
+  } catch {
+    return `c-${Date.now()}`;
+  }
+}
+
+/**
  * DashScope 临时存储上传器：
  * 浏览器 → /api/vton/upload（服务端 getPolicy + OSS 上传）→ oss:// URL（48h）。
  */

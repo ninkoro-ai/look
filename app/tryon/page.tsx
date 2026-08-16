@@ -13,11 +13,33 @@ import { uid } from "@/lib/format";
 import type { Category, WardrobeItem } from "@/lib/types";
 
 const TRYON_CATEGORIES: Category[] = ["top", "outerwear", "dress"];
+const DAILY_TRYON_LIMIT = 3;
 const LOADING_MESSAGES = [
   "正在生成你的穿搭效果...",
   "正在调整服装比例...",
   "正在优化真实效果...",
 ];
+
+function quotaState(): { date: string; count: number } {
+  try {
+    const raw = window.localStorage.getItem("chuanda-vton-quota");
+    const parsed = raw ? (JSON.parse(raw) as { date?: string; count?: number }) : null;
+    const today = new Date().toISOString().slice(0, 10);
+    if (!parsed || parsed.date !== today) return { date: today, count: 0 };
+    return { date: parsed.date ?? today, count: parsed.count ?? 0 };
+  } catch {
+    return { date: new Date().toISOString().slice(0, 10), count: 0 };
+  }
+}
+
+function remainingToday(): number {
+  return Math.max(0, DAILY_TRYON_LIMIT - quotaState().count);
+}
+
+function consumeQuota(): void {
+  const s = quotaState();
+  window.localStorage.setItem("chuanda-vton-quota", JSON.stringify({ date: s.date, count: s.count + 1 }));
+}
 
 function loadThumb(dataUrl: string, max = 512): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -162,6 +184,12 @@ export default function TryOnPage() {
 
   const generate = async () => {
     if (!selected || phase === "loading") return;
+    if (remainingToday() <= 0) {
+      setError("今日AI试穿次数已用完");
+      setPhase("error");
+      return;
+    }
+    consumeQuota();
     retried.current = 0;
     setPhase("loading");
     setLoadingMsg(LOADING_MESSAGES[0]);
@@ -284,13 +312,18 @@ export default function TryOnPage() {
         </section>
 
         {phase === "idle" && (
-          <button
-            onClick={() => void generate()}
-            disabled={!selected || health?.configured === false}
-            className="w-full rounded-full bg-accent py-4 text-[15px] font-medium text-white shadow-[0_8px_24px_rgba(185,106,75,0.3)] transition active:scale-[0.98] disabled:opacity-40"
-          >
-            ✨ AI 真实试穿
-          </button>
+          <div className="space-y-2">
+            <button
+              onClick={() => void generate()}
+              disabled={!selected || health?.configured === false || remainingToday() <= 0}
+              className="w-full rounded-full bg-accent py-4 text-[15px] font-medium text-white shadow-[0_8px_24px_rgba(185,106,75,0.3)] transition active:scale-[0.98] disabled:opacity-40"
+            >
+              ✨ AI 真实试穿（今日剩余 {remainingToday()} 次）
+            </button>
+            {remainingToday() <= 0 && (
+              <p className="text-center text-xs text-muted">今日AI试穿次数已用完，明天再来吧</p>
+            )}
+          </div>
         )}
 
         {phase === "loading" && (

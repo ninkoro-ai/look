@@ -30,7 +30,7 @@ function dataUrlToBlob(dataUrl: string): Promise<Blob> {
 export default function AlibabaLabPage() {
   const enabled = labEnabled();
   const provider = useMemo(() => new AlibabaAITryOnProvider(), []);
-  const [health, setHealth] = useState<{ configured: boolean; keyPresent: boolean; allowEnabled: boolean } | null>(null);
+  const [health, setHealth] = useState<{ alibaba?: "ready" | "disabled"; configured: boolean; keyPresent: boolean; allowEnabled: boolean } | null>(null);
   const [personBlob, setPersonBlob] = useState<Blob | null>(null);
   const [personPreview, setPersonPreview] = useState<string | null>(null);
   const [garmentBlob, setGarmentBlob] = useState<Blob | null>(null);
@@ -251,9 +251,13 @@ export default function AlibabaLabPage() {
         <p className="text-xs">
           {health === null
             ? "服务端代理：未连接（静态预览环境）"
-            : health.configured
-              ? "✅ 服务端已启用（DASHSCOPE_API_KEY + VTON_ALLOW_ALIBABA=true）"
-              : `⛔ 云端未启用：${!health.keyPresent ? "服务端缺 DASHSCOPE_API_KEY" : "VTON_ALLOW_ALIBABA 未开启"}`}
+            : `Alibaba AITryOn：${health.alibaba === "ready" ? "READY ✅" : "DISABLED ⛔"}（${
+                health.configured
+                  ? "Key + Beta 开关 + Allow 开关已启用"
+                  : !health.keyPresent
+                    ? "服务端缺 DASHSCOPE_API_KEY"
+                    : "VTON_BETA_ENABLED / VTON_ALLOW_ALIBABA 未开启"
+              }）`}
         </p>
         <p className="text-[10px] text-muted">
           计费：aitryon ¥0.2/张（≈${DASHSCOPE_COST_USD}/张，仅成功计费）· 图片 5KB~5MB / 150~4096px · Key 仅在服务端

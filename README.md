@@ -19,6 +19,7 @@
 - Phase 6B（国内 VTON Provider Benchmark）：统一 VTON Provider 契约 + 阿里云百炼 aitryon 服务端代理（Key 仅服务端、默认关闭），固定 20 组数据集（T恤/衬衫/外套/连衣裙），实验台支持统计/人工评分/JSON/MD 导出，详见 PHASE_6B_REPORT.md
 - Phase 6B.1（Alibaba AITryOn 集成）：`AlibabaAITryOnProvider` + 显式上传适配层（本地图 → 临时公网 URL）+ 专属实验台 `/lab/vton/alibaba` + 20 组真实图片基准框架（真人自拍/衣服照片/复杂场景），真实调用待 Key 与图片，详见 PHASE_6B_ALIBABA_REPORT.md
 - Phase 6E（AI Try-On 价值验证）：Beta 用户专属「✨ AI真实试穿」入口与 `/tryon` 全流程（选衣→生成→评分→收藏→付费意愿问卷），`VTON_BETA_ENABLED` 开关 + `/lab/vton/beta` 指标看板与成本报告；真实价值数据待 Key + 10 名测试用户，详见 PHASE_6E_REPORT.md
+- Phase 6F.0（Alibaba 生产连通）：Cloudflare Production 已配置 `DASHSCOPE_API_KEY` / `VTON_ALLOW_ALIBABA` / `VTON_BETA_ENABLED`，首次真实生成成功（task SUCCEEDED）；每用户每日 3 次限额（客户端 + 服务端，KV 可选）；详见 PHASE_6F_0_ALIBABA_CONNECTION_REPORT.md
 - Phase 6C（真实衣橱资产验证）：新增 `/lab/wardrobe` 实验台，验证“添加我的第一件衣服”两种上传方式（穿搭照片拆解 / 单品照片），记录无隐私的 onboarding 行为指标，20 组演示数据集（自拍/镜子/衣架/平铺各 5），详见 PHASE_6C_REPORT.md
 - Phase 6D（Closed Beta 验证）：Beta 测试模式（独立数据库、可一键删除）、空衣橱 CTA 与 3 步首启引导、AI 失败兜底（重新上传/手动添加）、行为埋点与 `/lab/beta` 指标看板、轻量反馈入口；真人测试数据待招募采集，详见 PHASE_6D_REPORT.md
 

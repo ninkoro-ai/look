@@ -1,5 +1,5 @@
 import type { VTONInput, VTONResult, VTONTask, VirtualTryOnProvider } from "@/lib/ai/vton/contract";
-import { DashScopeTempUploader } from "@/lib/ai/vton/uploader";
+import { DashScopeTempUploader, vtonClientId } from "@/lib/ai/vton/uploader";
 
 export const DASHSCOPE_PRICE_CNY = 0.2;
 const CNY_PER_USD = 7.2;
@@ -56,6 +56,7 @@ export class AlibabaAITryOnProvider implements VirtualTryOnProvider {
           garmentImageUrl: garmentUrl.url,
           garmentCategory: input.garmentCategory,
           benchmarkId: input.metadata?.benchmarkId,
+          clientId: vtonClientId(),
         }),
       });
       const data = (await resp.json()) as ServerTaskResult & ServerError;

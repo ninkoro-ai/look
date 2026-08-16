@@ -1,5 +1,32 @@
 # CHANGELOG
 
+## Phase 6F.0 — Alibaba AITryOn Production Connection（2026-08-16）
+
+### 配置
+- Cloudflare Pages Production 写入 3 个环境变量（wrangler pages secret put）：
+  - `DASHSCOPE_API_KEY`（加密）、`VTON_ALLOW_ALIBABA=true`、`VTON_BETA_ENABLED=true`
+- Preview 不复制 Key；健康检查确认 `alibaba: "ready"`
+
+### 新增/变更
+- `/api/vton/health`：新增 `alibaba: "ready" | "disabled"` 与 `betaEnabled` 状态（不返回 Key）
+- 成本保护：每用户每日最多 3 次 Alibaba TryOn
+  - 客户端：/tryon 显示「今日剩余 N 次」，用尽提示「今日AI试穿次数已用完」
+  - 服务端：tryon 接口先于上游检查，超限返回 429（优先 KV 持久化，未绑定时实例内存回退；KV 绑定后自动升级）
+  - Provider 发送 `clientId`（Beta 用户用 betaUserId，其余本地随机）用于限额统计
+- `/lab/vton/alibaba`：配置状态显示 `Alibaba AITryOn：READY / DISABLED`
+- 首次真实调用记录：`benchmarks/alibaba-first-run.json`（无图片/用户信息）
+- 报告：`PHASE_6F_0_ALIBABA_CONNECTION_REPORT.md`
+
+### 实测（2026-08-16）
+- 首次真实生成：task `f909e879-…` SUCCEEDED，约 181s，成本 ¥0.2
+- 线上验证：health ready、实验台 READY、/tryon 配额 UI 生效
+- 限额服务端验证：多实例下内存计数不可靠 → 已实现 KV 可选方案，KV 绑定待权限
+
+### 安全
+- Key 仅 Cloudflare Secret；未进代码/Git/日志/报告；健康检查不返回 Key；图片临时 48h
+- 回归全过：qa 16/16 · qa-lab 13/13 · qa-wardrobe 11/11 · qa-import 13/13 · qa-model 10/10 · qa-beta 16/16 · qa-alibaba 8/8 · qa-tryon 9/9
+
+## Phase 6E — AI Try-On Value Validation（2026-08-16）
 ## Phase 6E — AI Try-On Value Validation（2026-08-16）
 
 ### 新增
