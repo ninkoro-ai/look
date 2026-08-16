@@ -17,6 +17,7 @@ import {
 import { blobToDataUrl } from "@/lib/ai/vton/helpers";
 import { DEMO_ITEMS } from "@/lib/seed";
 import { uid } from "@/lib/format";
+import { track } from "@/lib/beta/track";
 
 const CATEGORIES: VTONCategory[] = ["top", "outerwear", "bottom", "dress"];
 
@@ -184,6 +185,7 @@ export default function VtonLabPage() {
 
   const runOne = async (p: VirtualTryOnProvider) => {
     if (!personBlob || !garmentBlob) return;
+    void track("vton_clicked", { page: "lab-vton", source: "single_item" });
     setRunning(p.id);
     try {
       const input = {

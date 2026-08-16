@@ -10,6 +10,7 @@ import { uid } from "@/lib/format";
 import { useAppData } from "@/hooks/useAppData";
 import { demoPresetsFor } from "@/lib/seed";
 import { DEFAULT_ANCHOR } from "@/lib/assets";
+import { track } from "@/lib/beta/track";
 import type { Category, WardrobeItem } from "@/lib/types";
 
 type Filter = "all" | Category;
@@ -140,6 +141,38 @@ export default function WardrobePage() {
         </div>
       </header>
 
+      {wardrobe.length === 0 ? (
+        <section className="px-5 pt-8 text-center">
+          <h2 className="font-display text-xl font-semibold text-ink">添加我的第一件衣服</h2>
+          <p className="mx-auto mt-2 max-w-xs text-[13px] leading-relaxed text-muted">
+            拍一张穿搭照或单品照，AI 帮你把真实衣服变成数字衣橱
+          </p>
+          <div className="mx-auto mt-5 max-w-xs space-y-2 text-left">
+            {[
+              ["1", "上传一张衣服照片"],
+              ["2", "AI 识别，确认无误"],
+              ["3", "进入衣橱开始搭配"],
+            ].map(([n, label]) => (
+              <div key={n} className="flex items-center gap-3 rounded-2xl border border-line bg-surface px-4 py-3">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent-soft text-[13px] font-semibold text-accent">
+                  {n}
+                </span>
+                <span className="text-[13px] text-ink">{label}</span>
+              </div>
+            ))}
+          </div>
+          <Link
+            href="/import"
+            prefetch={false}
+            onClick={() => void track("wardrobe_onboarding_started", { page: "wardrobe-empty" })}
+            className="mt-6 flex items-center justify-center gap-2 rounded-full bg-accent px-8 py-4 text-[15px] font-medium text-white shadow-[0_8px_24px_rgba(185,106,75,0.3)] transition active:scale-[0.98]"
+          >
+            <IconCamera width={20} height={20} />
+            添加我的第一件衣服
+          </Link>
+        </section>
+      ) : (
+        <>
       <Link
         href="/import"
         prefetch={false}
@@ -213,6 +246,8 @@ export default function WardrobePage() {
           </button>
         ))}
       </div>
+        </>
+      )}
 
       <BottomSheet open={sheetOpen} onClose={close} title={editing ? "编辑单品" : "添加单品"}>
         <p className="mb-2 text-xs font-medium text-muted">分类</p>

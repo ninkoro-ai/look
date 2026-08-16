@@ -13,6 +13,7 @@ import {
   deleteFavorite,
   deleteOutfit as deleteOutfitRecord,
   deleteWardrobeItem,
+  ensureBetaSeeded,
   ensureSeeded,
   getAllFavorites,
   getAllOutfits,
@@ -26,6 +27,8 @@ import {
   putWardrobeItem,
   putWardrobeItems,
 } from "@/lib/db";
+import { isBetaUser } from "@/lib/beta/storage";
+import { track } from "@/lib/beta/track";
 import { DEFAULT_USER_ID } from "@/lib/constants";
 import { REF_BODY, retuneAnchor } from "@/lib/body";
 import { todayKey, uid } from "@/lib/format";
@@ -97,9 +100,11 @@ export function AppDataProvider({ children }: { children: ReactNode }) {
     let cancelled = false;
     (async () => {
       try {
-        await ensureSeeded();
+        const beta = isBetaUser();
+        await (beta ? ensureBetaSeeded() : ensureSeeded());
         const data = await loadAll(DEFAULT_USER_ID, todayKey());
         if (cancelled) return;
+        if (beta) void track("session_started", { page: "app" });
         setUserModel(data.userModel ?? null);
         setWardrobe(data.wardrobe);
         setOutfits(data.outfits);

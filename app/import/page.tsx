@@ -9,7 +9,9 @@ import { uid } from "@/lib/format";
 import { DEFAULT_ANCHOR } from "@/lib/assets";
 import { detectGarments } from "@/lib/ai/garmentDetection";
 import { extractGarment, cropPreview } from "@/lib/ai/garmentExtraction";
+import { track } from "@/lib/beta/track";
 import { useAppData } from "@/hooks/useAppData";
+import { DEMO_ITEMS } from "@/lib/seed";
 import type { Category, DetectedGarment, WardrobeItem } from "@/lib/types";
 
 type Phase = "upload" | "detecting" | "review" | "extracting" | "done";
@@ -31,6 +33,9 @@ export default function ImportPage() {
   const [error, setError] = useState("");
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
   const [imported, setImported] = useState(0);
+  const [manualOpen, setManualOpen] = useState(false);
+  const [manualName, setManualName] = useState("");
+  const [manualCategory, setManualCategory] = useState<Category>("top");
 
   const reset = () => {
     setPhase("upload");
@@ -45,6 +50,7 @@ export default function ImportPage() {
 
   const handleFile = async (file: File | undefined) => {
     if (!file) return;
+    void track("garment_upload_started", { source: "outfit_photo", page: "import" });
     setError("");
     setPhase("detecting");
     const previewUrl = URL.createObjectURL(file);
@@ -62,6 +68,7 @@ export default function ImportPage() {
       }));
       setItems(review);
       setPhase("review");
+      void track("garment_detection_completed", { detectedCount: detections.length, page: "import" });
     } catch (e) {
       setError(e instanceof Error ? e.message : "识别失败，请换一张照片");
       setPhase("upload");
@@ -117,6 +124,7 @@ export default function ImportPage() {
           createdAt: new Date().toISOString(),
         };
         await addItem(garment);
+        void track("garment_added", { category: it.garment.category, source: "outfit_photo", page: "import" });
         count++;
       } catch {
         // 单个失败不中断整体导入
@@ -124,6 +132,37 @@ export default function ImportPage() {
       setProgress({ done: i + 1, total: kept.length });
     }
     setImported(count);
+    setPhase("done");
+    void track("garment_detection_completed", {
+      detectedCount: kept.length,
+      confirmedCount: count,
+      page: "import",
+    });
+  };
+
+  const manualAdd = async () => {
+    const cat = manualCategory;
+    const finalName = manualName.trim() || CATEGORY_LABELS[cat];
+    const placeholder = DEMO_ITEMS.find((i) => i.category === cat);
+    const garment: WardrobeItem = {
+      id: uid(),
+      category: cat,
+      name: finalName,
+      imageUrl: placeholder?.transparentImageUrl ?? placeholder?.imageUrl ?? "",
+      transparentImageUrl: placeholder?.transparentImageUrl,
+      source: "manual",
+      color: placeholder?.color,
+      style: placeholder?.style,
+      season: placeholder?.season,
+      layer: LAYER_BY_CATEGORY[cat],
+      anchor: DEFAULT_ANCHOR[cat],
+      isFavorite: false,
+      createdAt: new Date().toISOString(),
+    };
+    await addItem(garment);
+    void track("garment_added", { category: cat, source: "single_item", page: "import-manual" });
+    setImported(1);
+    setManualOpen(false);
     setPhase("done");
   };
 
@@ -165,7 +204,53 @@ export default function ImportPage() {
               <p>・全身穿搭照可以一次拆出多件</p>
               <p>・识别结果需人工确认后才会加入衣橱</p>
             </div>
-            {error && <p className="rounded-2xl bg-red-50 p-4 text-sm text-red-600">{error}</p>}
+            {error && (
+              <div className="space-y-2">
+                <p className="rounded-2xl bg-red-50 p-4 text-sm text-red-600">{error}</p>
+                <div className="flex gap-2">
+                  <button
+                    onClick={reset}
+                    className="flex-1 rounded-full border border-line py-3 text-sm text-ink"
+                  >
+                    重新上传
+                  </button>
+                  <button
+                    onClick={() => setManualOpen((v) => !v)}
+                    className="flex-1 rounded-full border border-line py-3 text-sm text-ink"
+                  >
+                    手动添加一件
+                  </button>
+                </div>
+                {manualOpen && (
+                  <div className="space-y-3 rounded-2xl border border-line bg-surface p-4">
+                    <p className="text-sm font-medium text-ink">手动添加衣服</p>
+                    <input
+                      value={manualName}
+                      onChange={(e) => setManualName(e.target.value)}
+                      placeholder="衣服名称，如：白色短袖 T 恤"
+                      className="w-full rounded-xl border border-line bg-surface px-3 py-2.5 text-sm text-ink outline-none focus:border-accent"
+                    />
+                    <select
+                      value={manualCategory}
+                      onChange={(e) => setManualCategory(e.target.value as Category)}
+                      className="w-full rounded-xl border border-line bg-surface px-3 py-2.5 text-sm text-ink outline-none"
+                    >
+                      {Object.entries(CATEGORY_LABELS).map(([key, label]) => (
+                        <option key={key} value={key}>
+                          {label}
+                        </option>
+                      ))}
+                    </select>
+                    <button
+                      onClick={() => void manualAdd()}
+                      className="w-full rounded-full bg-accent py-3 text-sm font-medium text-white"
+                    >
+                      加入衣橱
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         )}
 

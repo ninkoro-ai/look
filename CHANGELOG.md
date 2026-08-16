@@ -1,5 +1,40 @@
 # CHANGELOG
 
+## Phase 6D — Closed Beta Validation（2026-08-16）
+
+### 新增
+- Beta 测试模式与数据隔离（`lib/beta/storage.ts`）：
+  - 独立 IndexedDB（`chuanda-walk-in-closet-beta`），普通用户数据库 v3 不变
+  - Beta 用户标识（本地生成）、一键退出并删除全部测试数据
+  - 入口：邀请链接 `?beta=1` 或 `/lab/beta` 开启
+- Beta 埋点与指标（`lib/beta/track.ts` / `lib/beta/metrics.ts` / `lib/beta/events.ts`）：
+  - 事件：session / onboarding / upload / detection / garment_added / daily_outfit_viewed / dress_viewed / vton_clicked / feedback / data_deleted
+  - 指标：首次衣橱完成率（≥5 件）、首次完成时间、Day0/3/7 衣物增长、Day1/3/7 留存、推荐查看率、AI 试穿点击率、反馈分布
+- 产品面（不影响普通用户）：
+  - 首页：Beta 空衣橱 3 步引导 + 今日 LOOK 点击埋点 + 轻量反馈入口 + Beta 退出/删除入口
+  - 衣橱页：空衣橱时显示「添加我的第一件衣服」CTA（非空衣橱不变）
+  - `/import`：AI 失败兜底（重新上传 / 手动添加一件）+ Beta 埋点
+  - 换装间：`dress_page_viewed` 埋点；VTON 实验台：`vton_clicked` 埋点
+- Beta 看板：`/lab/beta`（指标表、用户明细、反馈汇总、JSON 导出、删除数据）
+- 基准数据：`benchmarks/beta-analytics-20260816.json`
+- 报告：`PHASE_6D_REPORT.md`
+
+### 变更
+- `lib/db.ts`：数据库名按 Beta 状态切换；Beta 库新增 `betaEvents` 存储；新增 `ensureBetaSeeded`（只种模特不种演示衣物）、`deleteBetaDatabase`
+- `hooks/useAppData.tsx`：Beta 库按需播种 + 会话埋点
+- `scripts/qa-beta.mjs`：Beta 全流程回归（16 项断言，支持 `SAVE_BETA_EXPORT` 导出快照）
+
+### 实测（2026-08-16，13 人模拟 Cohort）
+- 首次衣橱完成率 69%（9/13）；平均首次完成时间 151s（<3min 目标达成）
+- 留存 Day1 69% / Day3 54% / Day7 38%（模拟）
+- 推荐查看用户占比 54%；AI 试穿点击率 38%
+- 反馈 😊3 / 😐1 / 😞1 + 文字 1 条
+- **真人数据待招募 10–20 名 Closed Beta 测试者采集**
+
+### 安全
+- Beta 事件仅含行为统计，无照片/姓名/手机号（QA 断言）；照片仅存本机 IndexedDB
+- Beta 数据独立可删除；主库与普通用户数据不受影响；云端 VTON 维持默认关闭
+
 ## Phase 6C — Real Wardrobe Asset Validation（2026-08-16）
 
 ### 新增

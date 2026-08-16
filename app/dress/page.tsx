@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { ModelCanvas } from "@/components/ModelCanvas";
 import { ModelSheet } from "@/components/ModelSheet";
 import { IconChevronRight, IconHeart, IconUser, IconX } from "@/components/icons";
@@ -11,6 +11,7 @@ import { CATEGORY_LABELS, CATEGORY_ORDER } from "@/lib/constants";
 import { uid } from "@/lib/format";
 import { emptyOutfit, slotFor, toggleItem } from "@/lib/outfitEngine";
 import { useAppData } from "@/hooks/useAppData";
+import { track } from "@/lib/beta/track";
 import type { Category, Outfit } from "@/lib/types";
 
 function DressRoom() {
@@ -18,6 +19,10 @@ function DressRoom() {
   const searchParams = useSearchParams();
   const editId = searchParams.get("outfit");
   const { show, toast } = useToast();
+
+  useEffect(() => {
+    void track("dress_page_viewed", { page: "dress" });
+  }, []);
 
   const [outfit, setOutfit] = useState<Outfit | null>(null);
   const [category, setCategory] = useState<Category>("top");

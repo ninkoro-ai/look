@@ -1,0 +1,954 @@
+{
+  "exportedAt": "2026-08-16T08:02:25.445Z",
+  "metrics": {
+    "totalUsers": 13,
+    "startedUsers": 13,
+    "completedUsers": 9,
+    "completionRate": 69.23076923076923,
+    "avgFirstCompletionMs": 151126,
+    "itemGrowth": {
+      "day0": 3.5,
+      "day3": 0,
+      "day7": 0
+    },
+    "retention": {
+      "day1": 69.23076923076923,
+      "day3": 53.84615384615385,
+      "day7": 38.46153846153847
+    },
+    "dailyOutfitViews": 7,
+    "viewUsers": 7,
+    "viewUserRate": 53.84615384615385,
+    "dressViews": 0,
+    "favoritesCount": 0,
+    "vtonClickUsers": 5,
+    "vtonClickRate": 38.46153846153847,
+    "feedback": {
+      "like": 3,
+      "neutral": 1,
+      "dislike": 1,
+      "textCount": 1
+    },
+    "deletedDataCount": 0
+  },
+  "events": [
+    {
+      "id": "beta-u01-s0",
+      "betaUserId": "beta-u01",
+      "createdAt": "2026-08-09T08:00:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u01-on",
+      "betaUserId": "beta-u01",
+      "createdAt": "2026-08-09T08:00:10.000Z",
+      "event": "wardrobe_onboarding_started"
+    },
+    {
+      "id": "beta-u01-up",
+      "betaUserId": "beta-u01",
+      "createdAt": "2026-08-09T08:00:20.000Z",
+      "event": "garment_upload_started",
+      "source": "outfit_photo"
+    },
+    {
+      "id": "beta-u01-dt",
+      "betaUserId": "beta-u01",
+      "createdAt": "2026-08-09T08:00:25.000Z",
+      "event": "garment_detection_completed",
+      "detectedCount": 5,
+      "confirmedCount": 5
+    },
+    {
+      "id": "beta-u01-a0",
+      "betaUserId": "beta-u01",
+      "createdAt": "2026-08-09T08:00:40.000Z",
+      "event": "garment_added",
+      "category": "outerwear"
+    },
+    {
+      "id": "beta-u02-s0",
+      "betaUserId": "beta-u02",
+      "createdAt": "2026-08-09T08:01:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u02-on",
+      "betaUserId": "beta-u02",
+      "createdAt": "2026-08-09T08:01:10.000Z",
+      "event": "wardrobe_onboarding_started"
+    },
+    {
+      "id": "beta-u01-a1",
+      "betaUserId": "beta-u01",
+      "createdAt": "2026-08-09T08:01:15.000Z",
+      "event": "garment_added",
+      "category": "top"
+    },
+    {
+      "id": "beta-u02-up",
+      "betaUserId": "beta-u02",
+      "createdAt": "2026-08-09T08:01:20.000Z",
+      "event": "garment_upload_started",
+      "source": "outfit_photo"
+    },
+    {
+      "id": "beta-u02-dt",
+      "betaUserId": "beta-u02",
+      "createdAt": "2026-08-09T08:01:25.000Z",
+      "event": "garment_detection_completed",
+      "detectedCount": 5,
+      "confirmedCount": 5
+    },
+    {
+      "id": "beta-u01-v1",
+      "betaUserId": "beta-u01",
+      "createdAt": "2026-08-09T08:01:30.000Z",
+      "event": "daily_outfit_viewed",
+      "page": "home"
+    },
+    {
+      "id": "beta-u02-a0",
+      "betaUserId": "beta-u02",
+      "createdAt": "2026-08-09T08:01:40.000Z",
+      "event": "garment_added",
+      "category": "outerwear"
+    },
+    {
+      "id": "beta-u01-a2",
+      "betaUserId": "beta-u01",
+      "createdAt": "2026-08-09T08:01:50.000Z",
+      "event": "garment_added",
+      "category": "bottom"
+    },
+    {
+      "id": "beta-u01-vt",
+      "betaUserId": "beta-u01",
+      "createdAt": "2026-08-09T08:02:00.000Z",
+      "event": "vton_clicked",
+      "page": "lab-vton"
+    },
+    {
+      "id": "beta-u03-s0",
+      "betaUserId": "beta-u03",
+      "createdAt": "2026-08-09T08:02:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u01-fb",
+      "betaUserId": "beta-u01",
+      "createdAt": "2026-08-09T08:02:10.000Z",
+      "event": "feedback_submitted",
+      "feedback": "like"
+    },
+    {
+      "id": "beta-u03-on",
+      "betaUserId": "beta-u03",
+      "createdAt": "2026-08-09T08:02:10.000Z",
+      "event": "wardrobe_onboarding_started"
+    },
+    {
+      "id": "beta-u02-a1",
+      "betaUserId": "beta-u02",
+      "createdAt": "2026-08-09T08:02:15.000Z",
+      "event": "garment_added",
+      "category": "top"
+    },
+    {
+      "id": "beta-u03-up",
+      "betaUserId": "beta-u03",
+      "createdAt": "2026-08-09T08:02:20.000Z",
+      "event": "garment_upload_started",
+      "source": "outfit_photo"
+    },
+    {
+      "id": "beta-u01-a3",
+      "betaUserId": "beta-u01",
+      "createdAt": "2026-08-09T08:02:25.000Z",
+      "event": "garment_added",
+      "category": "shoes"
+    },
+    {
+      "id": "beta-u03-dt",
+      "betaUserId": "beta-u03",
+      "createdAt": "2026-08-09T08:02:25.000Z",
+      "event": "garment_detection_completed",
+      "detectedCount": 5,
+      "confirmedCount": 5
+    },
+    {
+      "id": "beta-u02-v1",
+      "betaUserId": "beta-u02",
+      "createdAt": "2026-08-09T08:02:30.000Z",
+      "event": "daily_outfit_viewed",
+      "page": "home"
+    },
+    {
+      "id": "beta-u03-a0",
+      "betaUserId": "beta-u03",
+      "createdAt": "2026-08-09T08:02:40.000Z",
+      "event": "garment_added",
+      "category": "outerwear"
+    },
+    {
+      "id": "beta-u02-a2",
+      "betaUserId": "beta-u02",
+      "createdAt": "2026-08-09T08:02:50.000Z",
+      "event": "garment_added",
+      "category": "bottom"
+    },
+    {
+      "id": "beta-u01-a4",
+      "betaUserId": "beta-u01",
+      "createdAt": "2026-08-09T08:03:00.000Z",
+      "event": "garment_added",
+      "category": "bag"
+    },
+    {
+      "id": "beta-u02-vt",
+      "betaUserId": "beta-u02",
+      "createdAt": "2026-08-09T08:03:00.000Z",
+      "event": "vton_clicked",
+      "page": "lab-vton"
+    },
+    {
+      "id": "beta-u04-s0",
+      "betaUserId": "beta-u04",
+      "createdAt": "2026-08-09T08:03:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u02-fb",
+      "betaUserId": "beta-u02",
+      "createdAt": "2026-08-09T08:03:10.000Z",
+      "event": "feedback_submitted",
+      "feedback": "neutral"
+    },
+    {
+      "id": "beta-u04-on",
+      "betaUserId": "beta-u04",
+      "createdAt": "2026-08-09T08:03:10.000Z",
+      "event": "wardrobe_onboarding_started"
+    },
+    {
+      "id": "beta-u03-a1",
+      "betaUserId": "beta-u03",
+      "createdAt": "2026-08-09T08:03:15.000Z",
+      "event": "garment_added",
+      "category": "top"
+    },
+    {
+      "id": "beta-u04-up",
+      "betaUserId": "beta-u04",
+      "createdAt": "2026-08-09T08:03:20.000Z",
+      "event": "garment_upload_started",
+      "source": "outfit_photo"
+    },
+    {
+      "id": "beta-u02-a3",
+      "betaUserId": "beta-u02",
+      "createdAt": "2026-08-09T08:03:25.000Z",
+      "event": "garment_added",
+      "category": "shoes"
+    },
+    {
+      "id": "beta-u04-dt",
+      "betaUserId": "beta-u04",
+      "createdAt": "2026-08-09T08:03:25.000Z",
+      "event": "garment_detection_completed",
+      "detectedCount": 5,
+      "confirmedCount": 5
+    },
+    {
+      "id": "beta-u03-v1",
+      "betaUserId": "beta-u03",
+      "createdAt": "2026-08-09T08:03:30.000Z",
+      "event": "daily_outfit_viewed",
+      "page": "home"
+    },
+    {
+      "id": "beta-u04-a0",
+      "betaUserId": "beta-u04",
+      "createdAt": "2026-08-09T08:03:40.000Z",
+      "event": "garment_added",
+      "category": "outerwear"
+    },
+    {
+      "id": "beta-u03-a2",
+      "betaUserId": "beta-u03",
+      "createdAt": "2026-08-09T08:03:50.000Z",
+      "event": "garment_added",
+      "category": "bottom"
+    },
+    {
+      "id": "beta-u02-a4",
+      "betaUserId": "beta-u02",
+      "createdAt": "2026-08-09T08:04:00.000Z",
+      "event": "garment_added",
+      "category": "bag"
+    },
+    {
+      "id": "beta-u03-vt",
+      "betaUserId": "beta-u03",
+      "createdAt": "2026-08-09T08:04:00.000Z",
+      "event": "vton_clicked",
+      "page": "lab-vton"
+    },
+    {
+      "id": "beta-u05-s0",
+      "betaUserId": "beta-u05",
+      "createdAt": "2026-08-09T08:04:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u03-fb",
+      "betaUserId": "beta-u03",
+      "createdAt": "2026-08-09T08:04:10.000Z",
+      "event": "feedback_submitted",
+      "feedback": "dislike"
+    },
+    {
+      "id": "beta-u05-on",
+      "betaUserId": "beta-u05",
+      "createdAt": "2026-08-09T08:04:10.000Z",
+      "event": "wardrobe_onboarding_started"
+    },
+    {
+      "id": "beta-u04-a1",
+      "betaUserId": "beta-u04",
+      "createdAt": "2026-08-09T08:04:15.000Z",
+      "event": "garment_added",
+      "category": "top"
+    },
+    {
+      "id": "beta-u05-up",
+      "betaUserId": "beta-u05",
+      "createdAt": "2026-08-09T08:04:20.000Z",
+      "event": "garment_upload_started",
+      "source": "outfit_photo"
+    },
+    {
+      "id": "beta-u03-a3",
+      "betaUserId": "beta-u03",
+      "createdAt": "2026-08-09T08:04:25.000Z",
+      "event": "garment_added",
+      "category": "shoes"
+    },
+    {
+      "id": "beta-u05-dt",
+      "betaUserId": "beta-u05",
+      "createdAt": "2026-08-09T08:04:25.000Z",
+      "event": "garment_detection_completed",
+      "detectedCount": 5,
+      "confirmedCount": 5
+    },
+    {
+      "id": "beta-u04-v1",
+      "betaUserId": "beta-u04",
+      "createdAt": "2026-08-09T08:04:30.000Z",
+      "event": "daily_outfit_viewed",
+      "page": "home"
+    },
+    {
+      "id": "beta-u05-a0",
+      "betaUserId": "beta-u05",
+      "createdAt": "2026-08-09T08:04:40.000Z",
+      "event": "garment_added",
+      "category": "outerwear"
+    },
+    {
+      "id": "beta-u04-a2",
+      "betaUserId": "beta-u04",
+      "createdAt": "2026-08-09T08:04:50.000Z",
+      "event": "garment_added",
+      "category": "bottom"
+    },
+    {
+      "id": "beta-u03-a4",
+      "betaUserId": "beta-u03",
+      "createdAt": "2026-08-09T08:05:00.000Z",
+      "event": "garment_added",
+      "category": "bag"
+    },
+    {
+      "id": "beta-u04-vt",
+      "betaUserId": "beta-u04",
+      "createdAt": "2026-08-09T08:05:00.000Z",
+      "event": "vton_clicked",
+      "page": "lab-vton"
+    },
+    {
+      "id": "beta-u06-s0",
+      "betaUserId": "beta-u06",
+      "createdAt": "2026-08-09T08:05:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u04-fb",
+      "betaUserId": "beta-u04",
+      "createdAt": "2026-08-09T08:05:10.000Z",
+      "event": "feedback_submitted",
+      "feedback": "like",
+      "feedbackText": "推荐不够准"
+    },
+    {
+      "id": "beta-u06-on",
+      "betaUserId": "beta-u06",
+      "createdAt": "2026-08-09T08:05:10.000Z",
+      "event": "wardrobe_onboarding_started"
+    },
+    {
+      "id": "beta-u05-a1",
+      "betaUserId": "beta-u05",
+      "createdAt": "2026-08-09T08:05:15.000Z",
+      "event": "garment_added",
+      "category": "top"
+    },
+    {
+      "id": "beta-u06-up",
+      "betaUserId": "beta-u06",
+      "createdAt": "2026-08-09T08:05:20.000Z",
+      "event": "garment_upload_started",
+      "source": "outfit_photo"
+    },
+    {
+      "id": "beta-u04-a3",
+      "betaUserId": "beta-u04",
+      "createdAt": "2026-08-09T08:05:25.000Z",
+      "event": "garment_added",
+      "category": "shoes"
+    },
+    {
+      "id": "beta-u06-dt",
+      "betaUserId": "beta-u06",
+      "createdAt": "2026-08-09T08:05:25.000Z",
+      "event": "garment_detection_completed",
+      "detectedCount": 5,
+      "confirmedCount": 5
+    },
+    {
+      "id": "beta-u05-v1",
+      "betaUserId": "beta-u05",
+      "createdAt": "2026-08-09T08:05:30.000Z",
+      "event": "daily_outfit_viewed",
+      "page": "home"
+    },
+    {
+      "id": "beta-u06-a0",
+      "betaUserId": "beta-u06",
+      "createdAt": "2026-08-09T08:05:40.000Z",
+      "event": "garment_added",
+      "category": "outerwear"
+    },
+    {
+      "id": "beta-u05-a2",
+      "betaUserId": "beta-u05",
+      "createdAt": "2026-08-09T08:05:50.000Z",
+      "event": "garment_added",
+      "category": "bottom"
+    },
+    {
+      "id": "beta-u04-a4",
+      "betaUserId": "beta-u04",
+      "createdAt": "2026-08-09T08:06:00.000Z",
+      "event": "garment_added",
+      "category": "bag"
+    },
+    {
+      "id": "beta-u07-s0",
+      "betaUserId": "beta-u07",
+      "createdAt": "2026-08-09T08:06:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u07-on",
+      "betaUserId": "beta-u07",
+      "createdAt": "2026-08-09T08:06:10.000Z",
+      "event": "wardrobe_onboarding_started"
+    },
+    {
+      "id": "beta-u06-a1",
+      "betaUserId": "beta-u06",
+      "createdAt": "2026-08-09T08:06:15.000Z",
+      "event": "garment_added",
+      "category": "top"
+    },
+    {
+      "id": "beta-u07-up",
+      "betaUserId": "beta-u07",
+      "createdAt": "2026-08-09T08:06:20.000Z",
+      "event": "garment_upload_started",
+      "source": "outfit_photo"
+    },
+    {
+      "id": "beta-u05-a3",
+      "betaUserId": "beta-u05",
+      "createdAt": "2026-08-09T08:06:25.000Z",
+      "event": "garment_added",
+      "category": "shoes"
+    },
+    {
+      "id": "beta-u07-dt",
+      "betaUserId": "beta-u07",
+      "createdAt": "2026-08-09T08:06:25.000Z",
+      "event": "garment_detection_completed",
+      "detectedCount": 5,
+      "confirmedCount": 5
+    },
+    {
+      "id": "beta-u06-v1",
+      "betaUserId": "beta-u06",
+      "createdAt": "2026-08-09T08:06:30.000Z",
+      "event": "daily_outfit_viewed",
+      "page": "home"
+    },
+    {
+      "id": "beta-u07-a0",
+      "betaUserId": "beta-u07",
+      "createdAt": "2026-08-09T08:06:40.000Z",
+      "event": "garment_added",
+      "category": "outerwear"
+    },
+    {
+      "id": "beta-u06-a2",
+      "betaUserId": "beta-u06",
+      "createdAt": "2026-08-09T08:06:50.000Z",
+      "event": "garment_added",
+      "category": "bottom"
+    },
+    {
+      "id": "beta-u05-a4",
+      "betaUserId": "beta-u05",
+      "createdAt": "2026-08-09T08:07:00.000Z",
+      "event": "garment_added",
+      "category": "bag"
+    },
+    {
+      "id": "beta-u08-s0",
+      "betaUserId": "beta-u08",
+      "createdAt": "2026-08-09T08:07:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u08-on",
+      "betaUserId": "beta-u08",
+      "createdAt": "2026-08-09T08:07:10.000Z",
+      "event": "wardrobe_onboarding_started"
+    },
+    {
+      "id": "beta-u07-a1",
+      "betaUserId": "beta-u07",
+      "createdAt": "2026-08-09T08:07:15.000Z",
+      "event": "garment_added",
+      "category": "top"
+    },
+    {
+      "id": "beta-u08-up",
+      "betaUserId": "beta-u08",
+      "createdAt": "2026-08-09T08:07:20.000Z",
+      "event": "garment_upload_started",
+      "source": "outfit_photo"
+    },
+    {
+      "id": "beta-u06-a3",
+      "betaUserId": "beta-u06",
+      "createdAt": "2026-08-09T08:07:25.000Z",
+      "event": "garment_added",
+      "category": "shoes"
+    },
+    {
+      "id": "beta-u08-dt",
+      "betaUserId": "beta-u08",
+      "createdAt": "2026-08-09T08:07:25.000Z",
+      "event": "garment_detection_completed",
+      "detectedCount": 5,
+      "confirmedCount": 5
+    },
+    {
+      "id": "beta-u08-a0",
+      "betaUserId": "beta-u08",
+      "createdAt": "2026-08-09T08:07:40.000Z",
+      "event": "garment_added",
+      "category": "outerwear"
+    },
+    {
+      "id": "beta-u07-a2",
+      "betaUserId": "beta-u07",
+      "createdAt": "2026-08-09T08:07:50.000Z",
+      "event": "garment_added",
+      "category": "bottom"
+    },
+    {
+      "id": "beta-u06-a4",
+      "betaUserId": "beta-u06",
+      "createdAt": "2026-08-09T08:08:00.000Z",
+      "event": "garment_added",
+      "category": "bag"
+    },
+    {
+      "id": "beta-u09-s0",
+      "betaUserId": "beta-u09",
+      "createdAt": "2026-08-09T08:08:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u09-on",
+      "betaUserId": "beta-u09",
+      "createdAt": "2026-08-09T08:08:10.000Z",
+      "event": "wardrobe_onboarding_started"
+    },
+    {
+      "id": "beta-u08-a1",
+      "betaUserId": "beta-u08",
+      "createdAt": "2026-08-09T08:08:15.000Z",
+      "event": "garment_added",
+      "category": "top"
+    },
+    {
+      "id": "beta-u07-a3",
+      "betaUserId": "beta-u07",
+      "createdAt": "2026-08-09T08:08:25.000Z",
+      "event": "garment_added",
+      "category": "shoes"
+    },
+    {
+      "id": "beta-u08-a2",
+      "betaUserId": "beta-u08",
+      "createdAt": "2026-08-09T08:08:50.000Z",
+      "event": "garment_added",
+      "category": "bottom"
+    },
+    {
+      "id": "beta-u07-a4",
+      "betaUserId": "beta-u07",
+      "createdAt": "2026-08-09T08:09:00.000Z",
+      "event": "garment_added",
+      "category": "bag"
+    },
+    {
+      "id": "beta-u10-s0",
+      "betaUserId": "beta-u10",
+      "createdAt": "2026-08-09T08:09:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u10-on",
+      "betaUserId": "beta-u10",
+      "createdAt": "2026-08-09T08:09:10.000Z",
+      "event": "wardrobe_onboarding_started"
+    },
+    {
+      "id": "beta-u08-a3",
+      "betaUserId": "beta-u08",
+      "createdAt": "2026-08-09T08:09:25.000Z",
+      "event": "garment_added",
+      "category": "shoes"
+    },
+    {
+      "id": "beta-u08-a4",
+      "betaUserId": "beta-u08",
+      "createdAt": "2026-08-09T08:10:00.000Z",
+      "event": "garment_added",
+      "category": "bag"
+    },
+    {
+      "id": "beta-u11-s0",
+      "betaUserId": "beta-u11",
+      "createdAt": "2026-08-09T08:10:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u11-on",
+      "betaUserId": "beta-u11",
+      "createdAt": "2026-08-09T08:10:10.000Z",
+      "event": "wardrobe_onboarding_started"
+    },
+    {
+      "id": "beta-u12-s0",
+      "betaUserId": "beta-u12",
+      "createdAt": "2026-08-09T08:11:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u12-on",
+      "betaUserId": "beta-u12",
+      "createdAt": "2026-08-09T08:11:10.000Z",
+      "event": "wardrobe_onboarding_started"
+    },
+    {
+      "id": "beta-u01-s1",
+      "betaUserId": "beta-u01",
+      "createdAt": "2026-08-10T08:00:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u02-s1",
+      "betaUserId": "beta-u02",
+      "createdAt": "2026-08-10T08:01:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u03-s1",
+      "betaUserId": "beta-u03",
+      "createdAt": "2026-08-10T08:02:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u04-s1",
+      "betaUserId": "beta-u04",
+      "createdAt": "2026-08-10T08:03:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u05-s1",
+      "betaUserId": "beta-u05",
+      "createdAt": "2026-08-10T08:04:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u06-s1",
+      "betaUserId": "beta-u06",
+      "createdAt": "2026-08-10T08:05:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u07-s1",
+      "betaUserId": "beta-u07",
+      "createdAt": "2026-08-10T08:06:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u08-s1",
+      "betaUserId": "beta-u08",
+      "createdAt": "2026-08-10T08:07:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u09-s1",
+      "betaUserId": "beta-u09",
+      "createdAt": "2026-08-10T08:08:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u01-s3",
+      "betaUserId": "beta-u01",
+      "createdAt": "2026-08-12T08:00:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u02-s3",
+      "betaUserId": "beta-u02",
+      "createdAt": "2026-08-12T08:01:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u03-s3",
+      "betaUserId": "beta-u03",
+      "createdAt": "2026-08-12T08:02:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u04-s3",
+      "betaUserId": "beta-u04",
+      "createdAt": "2026-08-12T08:03:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u05-s3",
+      "betaUserId": "beta-u05",
+      "createdAt": "2026-08-12T08:04:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u06-s3",
+      "betaUserId": "beta-u06",
+      "createdAt": "2026-08-12T08:05:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u07-s3",
+      "betaUserId": "beta-u07",
+      "createdAt": "2026-08-12T08:06:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u01-s7",
+      "betaUserId": "beta-u01",
+      "createdAt": "2026-08-16T08:00:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u02-s7",
+      "betaUserId": "beta-u02",
+      "createdAt": "2026-08-16T08:01:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u03-s7",
+      "betaUserId": "beta-u03",
+      "createdAt": "2026-08-16T08:02:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "04c79804-6d29-402f-948b-1b7bc7d848c1",
+      "betaUserId": "beta-msviocyu-sluzet",
+      "createdAt": "2026-08-16T08:02:16.651Z",
+      "event": "session_started",
+      "page": "app"
+    },
+    {
+      "id": "5bebe29b-fd57-4a9d-b01a-89fde9d3a31d",
+      "betaUserId": "beta-msviocyu-sluzet",
+      "createdAt": "2026-08-16T08:02:16.724Z",
+      "event": "session_started",
+      "page": "app"
+    },
+    {
+      "id": "661c4ea0-2825-4e68-84a1-4b3455ed624c",
+      "betaUserId": "beta-msviocyu-sluzet",
+      "createdAt": "2026-08-16T08:02:17.294Z",
+      "event": "session_started",
+      "page": "app"
+    },
+    {
+      "id": "da128d42-ef20-446a-9994-51295e3ab601",
+      "betaUserId": "beta-msviocyu-sluzet",
+      "createdAt": "2026-08-16T08:02:17.844Z",
+      "event": "wardrobe_onboarding_started",
+      "page": "wardrobe-empty"
+    },
+    {
+      "id": "7b3ee7e8-00ee-4de8-8707-313afa227b78",
+      "betaUserId": "beta-msviocyu-sluzet",
+      "createdAt": "2026-08-16T08:02:17.894Z",
+      "event": "garment_upload_started",
+      "source": "outfit_photo",
+      "page": "import"
+    },
+    {
+      "id": "58f1c612-747e-428a-8579-0c7ae11d7b77",
+      "betaUserId": "beta-msviocyu-sluzet",
+      "createdAt": "2026-08-16T08:02:17.902Z",
+      "event": "garment_detection_completed",
+      "detectedCount": 5,
+      "page": "import"
+    },
+    {
+      "id": "537188c1-4033-4ff7-9b11-d1700f3a4e63",
+      "betaUserId": "beta-msviocyu-sluzet",
+      "createdAt": "2026-08-16T08:02:17.966Z",
+      "event": "garment_added",
+      "category": "outerwear",
+      "source": "outfit_photo",
+      "page": "import"
+    },
+    {
+      "id": "24b98ffb-ac49-40fb-b11a-7038bbe66a94",
+      "betaUserId": "beta-msviocyu-sluzet",
+      "createdAt": "2026-08-16T08:02:17.970Z",
+      "event": "garment_added",
+      "category": "top",
+      "source": "outfit_photo",
+      "page": "import"
+    },
+    {
+      "id": "e2474401-e054-4619-b324-600583164941",
+      "betaUserId": "beta-msviocyu-sluzet",
+      "createdAt": "2026-08-16T08:02:17.974Z",
+      "event": "garment_added",
+      "category": "bottom",
+      "source": "outfit_photo",
+      "page": "import"
+    },
+    {
+      "id": "a3a160d6-bf4a-4cb1-a2c8-a61cf1491c47",
+      "betaUserId": "beta-msviocyu-sluzet",
+      "createdAt": "2026-08-16T08:02:17.977Z",
+      "event": "garment_added",
+      "category": "shoes",
+      "source": "outfit_photo",
+      "page": "import"
+    },
+    {
+      "id": "15be24ed-0ce8-4342-a1ad-1f97e768ef95",
+      "betaUserId": "beta-msviocyu-sluzet",
+      "createdAt": "2026-08-16T08:02:17.980Z",
+      "event": "garment_added",
+      "category": "bag",
+      "source": "outfit_photo",
+      "page": "import"
+    },
+    {
+      "id": "a038b1d5-5abe-4c7e-bb90-bf07efe817cc",
+      "betaUserId": "beta-msviocyu-sluzet",
+      "createdAt": "2026-08-16T08:02:17.980Z",
+      "event": "garment_detection_completed",
+      "detectedCount": 5,
+      "confirmedCount": 5,
+      "page": "import"
+    },
+    {
+      "id": "78cac5a3-cb79-4682-a0ec-76d9316176d0",
+      "betaUserId": "beta-msviocyu-sluzet",
+      "createdAt": "2026-08-16T08:02:18.021Z",
+      "event": "session_started",
+      "page": "app"
+    },
+    {
+      "id": "55228a1d-d1bd-44f3-8973-5cd2e07befeb",
+      "betaUserId": "beta-msviocyu-sluzet",
+      "createdAt": "2026-08-16T08:02:18.598Z",
+      "event": "daily_outfit_viewed",
+      "page": "home"
+    },
+    {
+      "id": "3a0129ba-62e7-4b15-b910-ea2291eae29b",
+      "betaUserId": "beta-msviocyu-sluzet",
+      "createdAt": "2026-08-16T08:02:19.455Z",
+      "event": "session_started",
+      "page": "app"
+    },
+    {
+      "id": "c38cfe81-adeb-49be-bc1b-f30e165393dc",
+      "betaUserId": "beta-msviocyu-sluzet",
+      "createdAt": "2026-08-16T08:02:20.130Z",
+      "event": "feedback_submitted",
+      "feedback": "like",
+      "page": "home"
+    },
+    {
+      "id": "c317f62b-ab72-48fb-a4de-2e08e9ceb88b",
+      "betaUserId": "beta-msviocyu-sluzet",
+      "createdAt": "2026-08-16T08:02:20.182Z",
+      "event": "session_started",
+      "page": "app"
+    },
+    {
+      "id": "69d2dd42-f382-43aa-955b-387597366e24",
+      "betaUserId": "beta-msviocyu-sluzet",
+      "createdAt": "2026-08-16T08:02:21.911Z",
+      "event": "vton_clicked",
+      "page": "lab-vton",
+      "source": "single_item"
+    },
+    {
+      "id": "3530fe5f-8af9-4231-9388-75a220fac560",
+      "betaUserId": "beta-msviocyu-sluzet",
+      "createdAt": "2026-08-16T08:02:24.804Z",
+      "event": "session_started",
+      "page": "app"
+    },
+    {
+      "id": "beta-u04-s7",
+      "betaUserId": "beta-u04",
+      "createdAt": "2026-08-16T08:03:00.000Z",
+      "event": "session_started"
+    },
+    {
+      "id": "beta-u05-s7",
+      "betaUserId": "beta-u05",
+      "createdAt": "2026-08-16T08:04:00.000Z",
+      "event": "session_started"
+    }
+  ]
+}
