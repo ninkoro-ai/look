@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## Phase 6B.1 — Alibaba DashScope AITryOn Integration（2026-08-16）
+
+### 新增
+- `AlibabaAITryOnProvider`：`lib/ai/vton/providers/alibaba.ts`（统一契约，调用方式不变；旧类名保留别名）
+- 上传适配层 `ImageAssetUploader`：`lib/ai/vton/uploader.ts`（本地图片 → 压缩/规范化 → 临时公网 URL）
+- 服务端端点：`functions/api/vton/upload.ts`（getPolicy + OSS 上传，返回 oss:// 48h URL）、`functions/api/vton/tryon.ts`（公网 URL 创建 aitryon 任务）
+- 专属实验台 `/lab/vton/alibaba`：人物/衣物上传 → Generate → task_id / 状态流转 / 耗时 / 成本 / 结果图 / 错误码
+- 20 组真实图片基准框架：`lib/ai/vton/alibabaBenchmark.ts`（真人自拍 ×8 / 衣服照片 ×8 / 复杂场景 ×4，图片放 `public/bench-assets/alibaba/` 后自动就绪）
+- 基准记录：`vtonTests` 新增 `qualityScore`（1~5 人工质量分）；导出 `ALIBABA_BENCHMARK.json`（provider/success/duration_ms/cost/quality_score）
+- 报告：`PHASE_6B_ALIBABA_REPORT.md`
+
+### 变更
+- `lib/ai/vton/registry.ts`：阿里云 Provider 改用 `AlibabaAITryOnProvider`
+- `lib/db.ts`：新增 `deleteVtonTestsByProvider`
+
+### 实测
+- 本机 wrangler 验证：upload/tryon/status 代理编译运行，无 Key 时安全返回 AUTH_ERROR
+- 真实云端调用未执行（缺 `DASHSCOPE_API_KEY` + 20 组真实图片），报告如实标注
+
+### 安全
+- Key 仅服务端；用户图片临时存储 48h、不持久化；云端默认关闭
+- 回归全过：qa 17/17 · qa-lab 13/13 · qa-wardrobe 11/11 · qa-import 10/10 · qa-model 10/10 · qa-beta 16/16 · qa-alibaba 8/8
+
 ## Phase 6D — Closed Beta Validation（2026-08-16）
 
 ### 新增

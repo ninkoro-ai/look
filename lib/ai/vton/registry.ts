@@ -4,7 +4,7 @@ import { HybridMaskVTONProvider } from "@/lib/ai/vton/hybridMask";
 import { OpenAIEditVTONProvider } from "@/lib/ai/vton/openaiImage";
 import type { VirtualTryOnProvider } from "@/lib/ai/vton/types";
 import { adaptLegacyProvider, type VirtualTryOnProvider as ContractVTONProvider } from "@/lib/ai/vton/contract";
-import { AlibabaVTONProvider } from "@/lib/ai/vton/providers/AlibabaVTONProvider";
+import { AlibabaAITryOnProvider } from "@/lib/ai/vton/providers/alibaba";
 
 /** Phase 6A 旧接口 Provider（保持原样，供既有调用方使用） */
 export function allVTONProviders(): VirtualTryOnProvider[] {
@@ -27,7 +27,7 @@ export function contractVTONProviders(): ContractVTONProvider[] {
   return [
     adaptLegacyProvider(new LocalLayerVTONProvider()),
     adaptLegacyProvider(new HybridMaskVTONProvider()),
-    new AlibabaVTONProvider(),
+    new AlibabaAITryOnProvider(),
     adaptLegacyProvider(new OpenAIEditVTONProvider()),
   ];
 }

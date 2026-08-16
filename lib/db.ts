@@ -66,6 +66,8 @@ export interface VtonTestRecord {
   success: boolean;
   error?: string;
   errorCode?: string;
+  /** 6B.1 阿里云基准：单一人工质量分 1~5 */
+  qualityScore?: number;
   quality?: {
     face: number;
     body: number;
@@ -270,6 +272,16 @@ export async function clearVtonTests(): Promise<void> {
   const db = await getDb();
   const tx = db.transaction("vtonTests", "readwrite");
   await tx.store.clear();
+  await tx.done;
+}
+
+export async function deleteVtonTestsByProvider(provider: string): Promise<void> {
+  const db = await getDb();
+  const all = await db.getAll("vtonTests");
+  const targets = all.filter((t) => t.provider === provider);
+  if (targets.length === 0) return;
+  const tx = db.transaction("vtonTests", "readwrite");
+  await Promise.all(targets.map((t) => tx.store.delete(t.id)));
   await tx.done;
 }
 
