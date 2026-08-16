@@ -42,6 +42,11 @@ try {
   await page.waitForSelector("text=LAB / VTON", { timeout: 20000 });
   check("lab page visible", true);
 
+  // 服务端代理健康检查（本地静态服务无 functions，返回失败属正常，但页面不应崩溃）
+  await page.waitForTimeout(800);
+  const hasProviderRadio = await page.getByRole("radio", { name: /阿里云百炼/ }).count();
+  check("alibaba provider listed", hasProviderRadio === 1);
+
   // 输入：sample 人物 + 演示上衣
   await page.getByRole("button", { name: "sample 1" }).click();
   await page.waitForTimeout(600);
@@ -49,54 +54,67 @@ try {
   await page.waitForTimeout(600);
   check("inputs ready", true);
 
-  // 本地图层方案
-  await page.getByRole("button", { name: "本地图层拼接（姿势锚点）" }).click();
+  // 本地图层方案（单次运行）
+  await page.getByRole("radio", { name: /本地图层拼接/ }).check();
+  await page.getByRole("button", { name: "运行当前 Provider", exact: true }).click();
   await page.waitForFunction(
     () => {
       const text = document.body.innerText;
       return text.includes("local-layer") && /latency \d+ms/.test(text) && text.includes("ok");
     },
+    undefined,
     { timeout: 120000 },
   );
   check("local-layer provider success", true);
 
-  // 人像分割方案
-  await page.getByRole("button", { name: "人像分割蒙版合成（MediaPipe）" }).click();
+  // 人像分割方案（单次运行）
+  await page.getByRole("radio", { name: /人像分割蒙版合成/ }).check();
+  await page.getByRole("button", { name: "运行当前 Provider", exact: true }).click();
   await page.waitForFunction(
     () => {
       const text = document.body.innerText;
       return text.includes("hybrid-mask") && /latency \d+ms/.test(text) && text.includes("ok");
     },
+    undefined,
     { timeout: 180000 },
   );
   check("hybrid-mask provider success", true);
 
-  // Benchmark 10 组 × 2 本地 Provider
-  await page.getByRole("button", { name: "运行 Benchmark" }).click();
+  // 全部 Benchmark：20 组 × 2 个本地可用 Provider = 40 条
+  await page.getByRole("button", { name: /运行全部 Benchmark/ }).click();
   await page.waitForFunction(
     () => document.body.innerText.includes("完成 ") && document.body.innerText.includes("组"),
-    { timeout: 420000 },
+    undefined,
+    { timeout: 600000 },
   );
   const count = await dbCount("vtonTests");
-  check("benchmark saved >= 20 tests", count >= 20, `count=${count}`);
+  check("benchmark saved >= 40 tests", count >= 40, `count=${count}`);
 
-  // 汇总表
+  // 汇总表包含 P50/P95 与两个本地 Provider
   const tableText = await page.locator("table").innerText();
   check("summary table has local-layer", tableText.includes("local-layer"));
   check("summary table has hybrid-mask", tableText.includes("hybrid-mask"));
+  check("summary table has P50", tableText.includes("P50"));
+  check("summary table has P95", tableText.includes("P95"));
 
   // 导出 JSON
-  const downloadPromise = page.waitForEvent("download", { timeout: 10000 });
-  await page.getByRole("button", { name: "导出报告 JSON" }).click();
-  const download = await downloadPromise;
-  check("export json downloads", download.suggestedFilename().endsWith(".json"), download.suggestedFilename());
+  const jsonPromise = page.waitForEvent("download", { timeout: 10000 });
+  await page.getByRole("button", { name: "导出 VTON_BENCHMARK JSON" }).click();
+  const jsonDl = await jsonPromise;
+  check("export json downloads", /^VTON_BENCHMARK_\d{8}\.json$/.test(jsonDl.suggestedFilename()), jsonDl.suggestedFilename());
+
+  // 导出 MD
+  const mdPromise = page.waitForEvent("download", { timeout: 10000 });
+  await page.getByRole("button", { name: "导出 VTON_BENCHMARK MD" }).click();
+  const mdDl = await mdPromise;
+  check("export md downloads", /^VTON_BENCHMARK_\d{8}\.md$/.test(mdDl.suggestedFilename()), mdDl.suggestedFilename());
 
   // 刷新后历史仍在
   await page.reload({ waitUntil: "networkidle", timeout: 60000 });
   await page.waitForSelector("text=测试记录", { timeout: 20000 });
-  check("history persists after reload", (await dbCount("vtonTests")) >= 20);
+  check("history persists after reload", (await dbCount("vtonTests")) >= 40);
 
-  await page.screenshot({ path: "scripts/shots/lab-vton.png" });
+  await page.screenshot({ path: "scripts/shots/lab-vton-6b.png" });
 } catch (e) {
   check("flow completed", false, e.message.slice(0, 240));
 }

@@ -1,0 +1,508 @@
+{
+  "exportedAt": "2026-08-16T03:08:37.837Z",
+  "dataset": "VTON_BENCHMARK_20",
+  "categories": [
+    "top",
+    "outerwear",
+    "bottom",
+    "dress"
+  ],
+  "providers": [
+    {
+      "id": "local-layer",
+      "name": "本地图层拼接（姿势锚点）",
+      "isCloud": false
+    },
+    {
+      "id": "hybrid-mask",
+      "name": "人像分割蒙版合成（MediaPipe）",
+      "isCloud": false
+    },
+    {
+      "id": "alibaba-vton",
+      "name": "阿里云百炼 AI试衣（aitryon）",
+      "isCloud": true
+    },
+    {
+      "id": "openai-image-edit",
+      "name": "OpenAI gpt-image-1 图像编辑",
+      "isCloud": false
+    }
+  ],
+  "stats": [
+    {
+      "provider": "local-layer",
+      "runs": 20,
+      "success": 20,
+      "failed": 0,
+      "successRate": 100,
+      "avgLatencyMs": 404,
+      "p50LatencyMs": 325,
+      "p95LatencyMs": 355,
+      "fastestMs": 314,
+      "slowestMs": 1842,
+      "totalCostUsd": 0,
+      "avgCostUsdPerSuccess": 0,
+      "avgQualityComposite": null,
+      "errors": {}
+    },
+    {
+      "provider": "hybrid-mask",
+      "runs": 20,
+      "success": 20,
+      "failed": 0,
+      "successRate": 100,
+      "avgLatencyMs": 1306,
+      "p50LatencyMs": 1212,
+      "p95LatencyMs": 1343,
+      "fastestMs": 1174,
+      "slowestMs": 3030,
+      "totalCostUsd": 0,
+      "avgCostUsdPerSuccess": 0,
+      "avgQualityComposite": null,
+      "errors": {}
+    }
+  ],
+  "cases": [
+    {
+      "caseId": "b01",
+      "caseLabel": "A-T恤 正面站立 × 纯白短袖 T 恤",
+      "provider": "local-layer",
+      "category": "top",
+      "success": true,
+      "latencyMs": 1842,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b01",
+      "caseLabel": "A-T恤 正面站立 × 纯白短袖 T 恤",
+      "provider": "hybrid-mask",
+      "category": "top",
+      "success": true,
+      "latencyMs": 3030,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b02",
+      "caseLabel": "A-T恤 轻微侧身 × 浅粉短袖",
+      "provider": "local-layer",
+      "category": "top",
+      "success": true,
+      "latencyMs": 324,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b02",
+      "caseLabel": "A-T恤 轻微侧身 × 浅粉短袖",
+      "provider": "hybrid-mask",
+      "category": "top",
+      "success": true,
+      "latencyMs": 1222,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b03",
+      "caseLabel": "A-T恤 长发 × 卡其工装短袖",
+      "provider": "local-layer",
+      "category": "top",
+      "success": true,
+      "latencyMs": 345,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b03",
+      "caseLabel": "A-T恤 长发 × 卡其工装短袖",
+      "provider": "hybrid-mask",
+      "category": "top",
+      "success": true,
+      "latencyMs": 1343,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b04",
+      "caseLabel": "A-T恤 浅色衣物 × 纯白短袖 T 恤",
+      "provider": "local-layer",
+      "category": "top",
+      "success": true,
+      "latencyMs": 338,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b04",
+      "caseLabel": "A-T恤 浅色衣物 × 纯白短袖 T 恤",
+      "provider": "hybrid-mask",
+      "category": "top",
+      "success": true,
+      "latencyMs": 1263,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b05",
+      "caseLabel": "A-T恤 室外环境 × 浅粉短袖",
+      "provider": "local-layer",
+      "category": "top",
+      "success": true,
+      "latencyMs": 323,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b05",
+      "caseLabel": "A-T恤 室外环境 × 浅粉短袖",
+      "provider": "hybrid-mask",
+      "category": "top",
+      "success": true,
+      "latencyMs": 1235,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b06",
+      "caseLabel": "B-衬衫 长发 × 米白真丝衬衫",
+      "provider": "local-layer",
+      "category": "top",
+      "success": true,
+      "latencyMs": 327,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b06",
+      "caseLabel": "B-衬衫 长发 × 米白真丝衬衫",
+      "provider": "hybrid-mask",
+      "category": "top",
+      "success": true,
+      "latencyMs": 1222,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b07",
+      "caseLabel": "B-衬衫 短发 × 白色雪纺衬衫",
+      "provider": "local-layer",
+      "category": "top",
+      "success": true,
+      "latencyMs": 329,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b07",
+      "caseLabel": "B-衬衫 短发 × 白色雪纺衬衫",
+      "provider": "hybrid-mask",
+      "category": "top",
+      "success": true,
+      "latencyMs": 1174,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b08",
+      "caseLabel": "B-衬衫 修身版型 × 藏蓝条纹长袖",
+      "provider": "local-layer",
+      "category": "top",
+      "success": true,
+      "latencyMs": 333,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b08",
+      "caseLabel": "B-衬衫 修身版型 × 藏蓝条纹长袖",
+      "provider": "hybrid-mask",
+      "category": "top",
+      "success": true,
+      "latencyMs": 1200,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b09",
+      "caseLabel": "B-衬衫 深色衣物 × 藏蓝条纹长袖",
+      "provider": "local-layer",
+      "category": "top",
+      "success": true,
+      "latencyMs": 336,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b09",
+      "caseLabel": "B-衬衫 深色衣物 × 藏蓝条纹长袖",
+      "provider": "hybrid-mask",
+      "category": "top",
+      "success": true,
+      "latencyMs": 1212,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b10",
+      "caseLabel": "B-衬衫 室内光线 × 米白真丝衬衫",
+      "provider": "local-layer",
+      "category": "top",
+      "success": true,
+      "latencyMs": 325,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b10",
+      "caseLabel": "B-衬衫 室内光线 × 米白真丝衬衫",
+      "provider": "hybrid-mask",
+      "category": "top",
+      "success": true,
+      "latencyMs": 1196,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b11",
+      "caseLabel": "C-外套 正面站立 × 黑色西装外套",
+      "provider": "local-layer",
+      "category": "outerwear",
+      "success": true,
+      "latencyMs": 327,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b11",
+      "caseLabel": "C-外套 正面站立 × 黑色西装外套",
+      "provider": "hybrid-mask",
+      "category": "outerwear",
+      "success": true,
+      "latencyMs": 1214,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b12",
+      "caseLabel": "C-外套 轻微侧身 × 卡其风衣",
+      "provider": "local-layer",
+      "category": "outerwear",
+      "success": true,
+      "latencyMs": 324,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b12",
+      "caseLabel": "C-外套 轻微侧身 × 卡其风衣",
+      "provider": "hybrid-mask",
+      "category": "outerwear",
+      "success": true,
+      "latencyMs": 1194,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b13",
+      "caseLabel": "C-外套 长发 × 燕麦色开衫",
+      "provider": "local-layer",
+      "category": "outerwear",
+      "success": true,
+      "latencyMs": 316,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b13",
+      "caseLabel": "C-外套 长发 × 燕麦色开衫",
+      "provider": "hybrid-mask",
+      "category": "outerwear",
+      "success": true,
+      "latencyMs": 1225,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b14",
+      "caseLabel": "C-外套 短发 × 米白羽绒服",
+      "provider": "local-layer",
+      "category": "outerwear",
+      "success": true,
+      "latencyMs": 355,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b14",
+      "caseLabel": "C-外套 短发 × 米白羽绒服",
+      "provider": "hybrid-mask",
+      "category": "outerwear",
+      "success": true,
+      "latencyMs": 1205,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b15",
+      "caseLabel": "C-外套 宽松版型 × 军绿夹克",
+      "provider": "local-layer",
+      "category": "outerwear",
+      "success": true,
+      "latencyMs": 322,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b15",
+      "caseLabel": "C-外套 宽松版型 × 军绿夹克",
+      "provider": "hybrid-mask",
+      "category": "outerwear",
+      "success": true,
+      "latencyMs": 1183,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b16",
+      "caseLabel": "D-连衣裙 正面站立 × 黑色吊带长裙",
+      "provider": "local-layer",
+      "category": "dress",
+      "success": true,
+      "latencyMs": 331,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b16",
+      "caseLabel": "D-连衣裙 正面站立 × 黑色吊带长裙",
+      "provider": "hybrid-mask",
+      "category": "dress",
+      "success": true,
+      "latencyMs": 1207,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b17",
+      "caseLabel": "D-连衣裙 轻微侧身 × 红色 A 字裙",
+      "provider": "local-layer",
+      "category": "dress",
+      "success": true,
+      "latencyMs": 322,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b17",
+      "caseLabel": "D-连衣裙 轻微侧身 × 红色 A 字裙",
+      "provider": "hybrid-mask",
+      "category": "dress",
+      "success": true,
+      "latencyMs": 1225,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b18",
+      "caseLabel": "D-连衣裙 长发 × 奶油针织连衣裙",
+      "provider": "local-layer",
+      "category": "dress",
+      "success": true,
+      "latencyMs": 325,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b18",
+      "caseLabel": "D-连衣裙 长发 × 奶油针织连衣裙",
+      "provider": "hybrid-mask",
+      "category": "dress",
+      "success": true,
+      "latencyMs": 1178,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b19",
+      "caseLabel": "D-连衣裙 室内光线 × 黑色吊带长裙",
+      "provider": "local-layer",
+      "category": "dress",
+      "success": true,
+      "latencyMs": 314,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b19",
+      "caseLabel": "D-连衣裙 室内光线 × 黑色吊带长裙",
+      "provider": "hybrid-mask",
+      "category": "dress",
+      "success": true,
+      "latencyMs": 1180,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b20",
+      "caseLabel": "D-连衣裙 室外环境 × 红色 A 字裙",
+      "provider": "local-layer",
+      "category": "dress",
+      "success": true,
+      "latencyMs": 319,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    },
+    {
+      "caseId": "b20",
+      "caseLabel": "D-连衣裙 室外环境 × 红色 A 字裙",
+      "provider": "hybrid-mask",
+      "category": "dress",
+      "success": true,
+      "latencyMs": 1213,
+      "estimatedCost": 0,
+      "errorCode": null,
+      "error": null
+    }
+  ]
+}

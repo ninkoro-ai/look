@@ -53,6 +53,16 @@ export interface VtonTestRecord {
   estimatedCost: number;
   success: boolean;
   error?: string;
+  errorCode?: string;
+  quality?: {
+    face: number;
+    body: number;
+    garment: number;
+    edge: number;
+    occlusion: number;
+    texture: number;
+    composite?: number;
+  };
   note?: string;
 }
 

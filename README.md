@@ -16,6 +16,7 @@
 - Phase 1（真人模特标准化）：上传全身照 → 浏览器本地人体检测 → 自动裁剪为 600×1200 标准画布 → 按身材比例重算全部衣物锚点
 - Phase 5（AI 衣物资产化）：上传穿搭照 → AI 识别单品 → 人工确认 → 生成透明衣物素材 → 加入衣橱并在换装间使用（Mock Provider，详见 PHASE_5_REPORT.md）
 - Phase 6A（VTON 技术验证）：新增 `/lab/vton` 实验台（默认隐藏），3 个 Provider（2 本地方案 + 1 OpenAI 图像编辑），10 组基准可复跑，详见 PHASE_6A_REPORT.md
+- Phase 6B（国内 VTON Provider Benchmark）：统一 VTON Provider 契约 + 阿里云百炼 aitryon 服务端代理（Key 仅服务端、默认关闭），固定 20 组数据集（T恤/衬衫/外套/连衣裙），实验台支持统计/人工评分/JSON/MD 导出，详见 PHASE_6B_REPORT.md
 
 未接入真实 AI API、无登录、无云端数据库；所有数据保存在浏览器本地（IndexedDB），可离线运行。
 
