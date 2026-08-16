@@ -40,6 +40,59 @@ export interface ModelPhoto {
   warnings: string[];
 }
 
+/** 原图归一化坐标（0-1）下的人体关键点，供 VTON 等在原始照片上定位 */
+export interface RawBody {
+  headTop: number;
+  neckY: number;
+  shoulderY: number;
+  waistY: number;
+  hipY: number;
+  kneeY: number;
+  ankleY: number;
+  footY: number;
+  shoulderWidth: number;
+  hipWidth: number;
+}
+
+function computeRawBody(lm: { x: number; y: number; visibility?: number }[]): RawBody | null {
+  const at = (i: number) => lm[i];
+  const mid = (a: number, b: number) => ({ x: (at(a).x + at(b).x) / 2, y: (at(a).y + at(b).y) / 2 });
+  const visible = (i: number) => (at(i).visibility ?? 0) > 0.45;
+  if (![11, 12, 23, 24, 25, 26, 27, 28].every(visible)) return null;
+
+  const shoulder = mid(11, 12);
+  const hip = mid(23, 24);
+  const knee = mid(25, 26);
+  const ankle = mid(27, 28);
+  const eye = mid(2, 5);
+  const shoulderW = Math.abs(at(11).x - at(12).x);
+  const hipW = Math.abs(at(23).x - at(24).x);
+  const footY = Math.max(at(29).y, at(30).y, at(31).y, at(32).y);
+  if (shoulderW < 0.035 || knee.y <= hip.y || ankle.y <= hip.y + 0.05) return null;
+
+  return {
+    headTop: Math.max(0, eye.y - (shoulder.y - eye.y) * 0.55),
+    neckY: shoulder.y - (shoulder.y - eye.y) * 0.22,
+    shoulderY: shoulder.y,
+    waistY: hip.y - (hip.y - shoulder.y) * 0.52,
+    hipY: hip.y,
+    kneeY: knee.y,
+    ankleY: ankle.y,
+    footY,
+    shoulderWidth: shoulderW,
+    hipWidth: hipW,
+  };
+}
+
+/** 只检测人体关键点（原图归一化坐标），不裁剪 */
+export async function detectPersonBody(image: HTMLImageElement | ImageBitmap): Promise<RawBody | null> {
+  const landmarker = await getPoseLandmarker();
+  const result = landmarker.detect(image);
+  const lm = result.landmarks[0];
+  if (!lm || lm.length < 33) return null;
+  return computeRawBody(lm);
+}
+
 /**
  * 模特照片标准化：人体检测 → 全身裁剪 → 归一化到 600×1200 标准画布。
  * 注意：这是「模特照片」（人像裁切，仍保留原照片中的服装），
@@ -52,27 +105,20 @@ export async function standardizeModelPhoto(image: HTMLImageElement): Promise<Mo
   const lm = result.landmarks[0];
   if (!lm || lm.length < 33) throw new Error("未检测到完整人体");
 
+  const raw = computeRawBody(lm);
+  if (!raw) throw new Error("身体有部分没拍全，请让全身完整入镜");
   const at = (i: number) => lm[i];
   const mid = (a: number, b: number) => ({ x: (at(a).x + at(b).x) / 2, y: (at(a).y + at(b).y) / 2 });
-  const visible = (i: number) => (at(i).visibility ?? 0) > 0.45;
-
-  // 必需关键点：肩/髋/膝/踝
-  if (![11, 12, 23, 24, 25, 26, 27, 28].every(visible)) {
-    throw new Error("身体有部分没拍全，请让全身完整入镜");
-  }
-
   const shoulder = mid(11, 12);
   const hip = mid(23, 24);
   const knee = mid(25, 26);
   const ankle = mid(27, 28);
   const eye = mid(2, 5);
-  const shoulderW = Math.abs(at(11).x - at(12).x);
-  const hipW = Math.abs(at(23).x - at(24).x);
-  const footY = Math.max(at(29).y, at(30).y, at(31).y, at(32).y);
+  const shoulderW = raw.shoulderWidth;
+  const hipW = raw.hipWidth;
+  const footY = raw.footY;
 
   const warnings: string[] = [];
-  if (shoulderW < 0.035) throw new Error("没能确定肩部位置，请正对镜头站立");
-  if (knee.y <= hip.y || ankle.y <= hip.y + 0.05) throw new Error("请站直并完整露出腿部");
   if (Math.abs(at(11).y - at(12).y) > shoulderW * 0.7) {
     warnings.push("肩膀有点倾斜，尽量站直、正对镜头");
   }

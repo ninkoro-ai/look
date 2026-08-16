@@ -32,13 +32,35 @@ interface ChuanDaDB extends DBSchema {
     value: DailyRecommendation;
     indexes: { "by-date": string };
   };
+  vtonTests: {
+    key: string;
+    value: VtonTestRecord;
+    indexes: { "by-created": string };
+  };
+}
+
+export interface VtonTestRecord {
+  id: string;
+  createdAt: string;
+  caseId?: string;
+  caseLabel?: string;
+  provider: string;
+  category: string;
+  personThumb?: string;
+  garmentThumb?: string;
+  outputUrl?: string;
+  latencyMs: number;
+  estimatedCost: number;
+  success: boolean;
+  error?: string;
+  note?: string;
 }
 
 let dbPromise: Promise<IDBPDatabase<ChuanDaDB>> | null = null;
 
 export function getDb(): Promise<IDBPDatabase<ChuanDaDB>> {
   if (!dbPromise) {
-    dbPromise = openDB<ChuanDaDB>("chuanda-walk-in-closet", 1, {
+    dbPromise = openDB<ChuanDaDB>("chuanda-walk-in-closet", 2, {
       upgrade(db) {
         if (!db.objectStoreNames.contains("models")) {
           db.createObjectStore("models", { keyPath: "id" });
@@ -57,6 +79,10 @@ export function getDb(): Promise<IDBPDatabase<ChuanDaDB>> {
         if (!db.objectStoreNames.contains("recommendations")) {
           const store = db.createObjectStore("recommendations", { keyPath: "id" });
           store.createIndex("by-date", "date");
+        }
+        if (!db.objectStoreNames.contains("vtonTests")) {
+          const store = db.createObjectStore("vtonTests", { keyPath: "id" });
+          store.createIndex("by-created", "createdAt");
         }
       },
     });
@@ -153,6 +179,29 @@ export async function putRecommendations(items: DailyRecommendation[]): Promise<
   const db = await getDb();
   const tx = db.transaction("recommendations", "readwrite");
   await Promise.all(items.map((r) => tx.store.put(r)));
+  await tx.done;
+}
+
+export async function getAllVtonTests(): Promise<VtonTestRecord[]> {
+  const db = await getDb();
+  const index = db.transaction("vtonTests").store.index("by-created");
+  return index.getAll();
+}
+
+export async function putVtonTest(record: VtonTestRecord): Promise<void> {
+  const db = await getDb();
+  await db.put("vtonTests", record);
+}
+
+export async function deleteVtonTest(id: string): Promise<void> {
+  const db = await getDb();
+  await db.delete("vtonTests", id);
+}
+
+export async function clearVtonTests(): Promise<void> {
+  const db = await getDb();
+  const tx = db.transaction("vtonTests", "readwrite");
+  await tx.store.clear();
   await tx.done;
 }
 
