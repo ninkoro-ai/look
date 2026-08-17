@@ -6,7 +6,13 @@ import { AlibabaAITryOnProvider, DASHSCOPE_PRICE_CNY } from "@/lib/ai/vton/provi
 import { adaptLegacyProvider, runVTONToCompletion, type VTONResult } from "@/lib/ai/vton/contract";
 import { HybridMaskVTONProvider } from "@/lib/ai/vton/hybridMask";
 import { blobToDataUrl } from "@/lib/ai/vton/uploader";
-import { DEMO_MODELS, DEMO_GARMENTS, type DemoGarment, type DemoModel } from "@/lib/demo/tryonDemo";
+import {
+  DEMO_GARMENTS,
+  DEMO_GENERATED,
+  DEMO_MODELS,
+  type DemoGarment,
+  type DemoModel,
+} from "@/lib/demo/tryonDemo";
 
 const LOADING_MESSAGES = [
   "正在生成你的穿搭效果...",
@@ -115,32 +121,47 @@ export default function RealTryOnDemoPage() {
       </header>
 
       <div className="space-y-4 px-5 pt-2">
-        <section className="rounded-3xl border border-line bg-surface p-4">
+      <section className="rounded-3xl border border-line bg-surface p-4">
           <div className="flex items-center justify-between">
-            <p className="text-xs text-muted">选择虚拟模特</p>
+            <p className="text-xs text-muted">选择模特（{models.length} 位 · AI + 真人）</p>
             <span className="rounded-full bg-sand px-2 py-0.5 text-[10px] text-muted">
               云端 AI：{alibabaReady === true ? "READY" : alibabaReady === false ? "本地回退" : "检测中…"}
             </span>
           </div>
-          <div className="mt-2 grid grid-cols-3 gap-2">
+          <div className="mt-2 flex gap-2 overflow-x-auto no-scrollbar pb-1">
             {models.map((m) => (
               <button
                 key={m.id}
                 onClick={() => setModel(m)}
-                className={`rounded-2xl border p-2 text-center transition active:scale-[0.98] ${
+                className={`w-[86px] shrink-0 rounded-2xl border p-2 text-center transition active:scale-[0.98] ${
                   model.id === m.id ? "border-accent bg-accent-soft" : "border-line bg-sand/40"
                 }`}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={m.imageUrl} alt={m.name} className="h-32 w-full rounded-xl object-cover" />
-                <p className="mt-1 text-[11px] font-medium text-ink">
-                  {m.name} · {m.age}岁
-                </p>
-                <p className="text-[10px] text-muted">{m.style}</p>
+                <p className="mt-1 text-[11px] font-medium text-ink">{m.name}</p>
+                {m.style && <p className="text-[10px] text-muted">{m.style}</p>}
               </button>
             ))}
           </div>
-        </section>
+      </section>
+
+      <section className="rounded-3xl border border-line bg-surface p-4">
+        <p className="text-xs text-muted">真实 AI 试穿效果（已生成 · 授权真人素材）</p>
+        <div className="mt-2 grid grid-cols-3 gap-2">
+          {DEMO_GENERATED.map((g) => (
+            <div key={g.id} className="overflow-hidden rounded-2xl border border-line bg-surface-soft">
+              <div className="flex gap-0.5 p-1.5">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={g.modelImageUrl} alt="before" className="h-24 w-1/2 rounded-lg object-cover" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={g.resultUrl} alt="after" className="h-24 w-1/2 rounded-lg object-cover" />
+              </div>
+              <p className="truncate px-1.5 pb-1.5 text-center text-[10px] text-muted">{g.garmentName}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
         <section className="rounded-3xl border border-line bg-surface p-4">
           <p className="text-xs text-muted">选择衣物（{garments.length} 件透明素材）</p>

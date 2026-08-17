@@ -26,8 +26,12 @@ try {
 
   // 素材数量
   const body = await page.evaluate(() => document.body.innerText);
-  check("3 models listed", /小雨 · 25岁/.test(body) && /安琪 · 28岁/.test(body) && /糖糖 · 23岁/.test(body));
+  check(
+    "models listed (AI + real)",
+    body.includes("AI 模特") && body.includes("真实模特") && body.includes("选择模特"),
+  );
   check("10 garments listed", body.includes("10 件透明素材"));
+  check("generated gallery listed", body.includes("真实 AI 试穿效果"));
 
   // 本地回退（静态预览无 /api → 云端检测为本地回退）
   await page.waitForTimeout(1200);
@@ -35,9 +39,9 @@ try {
   check("fallback status shown", status.includes("本地回退") || status.includes("检测中"));
 
   // 选择模特 + 衣物 → 生成（Local Segmentation 回退）
-  await page.getByRole("button", { name: /安琪 · 28岁/ }).click();
+  await page.getByRole("button").filter({ hasText: "AI 模特 01" }).first().click();
   await page.getByRole("button", { name: /酒红针织衫/ }).click();
-  await page.getByRole("button", { name: /AI 试穿：安琪/ }).click();
+  await page.getByRole("button", { name: /AI 试穿：AI 模特 01/ }).click();
   await page.waitForFunction(
     () => {
       const t = document.body.innerText;

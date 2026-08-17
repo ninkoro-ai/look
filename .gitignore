@@ -22,6 +22,9 @@
 # local QA screenshots
 /scripts/shots/
 
+# 本地 Demo 素材输入目录（已拷贝到 public/demo/real-tryon）
+/demo_simple/
+
 # MediaPipe 运行时资源（由 scripts/fetch-mediapipe.ps1 生成）
 /public/wasm/
 /public/models/
