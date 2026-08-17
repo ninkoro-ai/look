@@ -1,5 +1,30 @@
 # CHANGELOG
 
+## UI Redesign — 全局视觉升级（2026-08-17）
+
+### Design System
+- 重映射全局 Design Token（`app/globals.css`）：米白 `#FAF8F5` + 玫瑰粉 `#E98EA6` + 深黑 `#171717`，语义化 token 不变、全局生效
+- 圆角 14/18/22/28px、柔和阴影 `shadow-soft`/`shadow-float`、`card-hairline`/`pressable` 轻量动效
+
+### 组件 / 导航
+- 新增 `components/ui.tsx`（SectionTitle / Chip / Pill / SoftCard）
+- `AppShell` 底部导航 3 → 5 Tab（首页/衣橱/换装/收藏/我的），换装为中间浮起入口
+
+### 页面重构（业务逻辑与数据层零改动）
+- UI-01 首页：今天穿什么 Hero + 天气小卡 + 今日 Look 主卡 + 横向推荐 + 发现模块
+- UI-02 衣橱：3 列图片网格 + 分类 Chip + 空态 CTA + 右下 FAB
+- UI-03 换装：大模特 + 横向衣物卡片 + 收藏/AI 试穿分离
+- UI-04 穿搭详情：大图 + 为什么这样搭 + 图片清单
+- UI-05 新增 `/favorites` 收藏画廊（真实收藏数据）
+- UI-06 新增 `/profile` 我的/风格（真实衣橱统计，无数据空态）
+- UI-07 `/tryon` 结果页：Before/After + 完成标题，不暴露 Provider/task_id
+
+### 验证
+- 多尺寸截图：`scripts/shots/redesign/`（375/390/430/768/1440 × 6 页面）
+- 回归：qa / qa-layout / qa-import / qa-model / qa-lab / qa-wardrobe / qa-beta / qa-alibaba / qa-tryon / qa-demo 全部 PASS
+- 报告：`UI_REDESIGN_REPORT.md`
+
+## Phase 6F Demo — Real Human Try-On Demo（2026-08-16）
 ## Phase 6F Demo — Real Human Try-On Demo（2026-08-16）
 
 ### 新增

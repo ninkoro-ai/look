@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useMemo, useState } from "react";
 import { ModelCanvas } from "@/components/ModelCanvas";
-import { IconChevronRight, IconHeart, IconTrash } from "@/components/icons";
+import { IconChevronRight, IconHeart, IconSparkle, IconTrash } from "@/components/icons";
 import { useToast } from "@/components/Toast";
 import { CATEGORY_LABELS } from "@/lib/constants";
 import { outfitSlots } from "@/lib/outfitEngine";
@@ -27,15 +27,12 @@ function OutfitDetail() {
   const [removed, setRemoved] = useState(false);
 
   const outfit = useMemo(
-    () =>
-      [...outfits, ...recommendations.map((r) => r.outfit)].find((o) => o.id === id),
+    () => [...outfits, ...recommendations.map((r) => r.outfit)].find((o) => o.id === id),
     [id, outfits, recommendations],
   );
 
-  const isFavorite = useMemo(
-    () => favorites.some((f) => f.outfitId === id),
-    [favorites, id],
-  );
+  const rec = recommendations.find((r) => r.outfit.id === id);
+  const isFavorite = useMemo(() => favorites.some((f) => f.outfitId === id), [favorites, id]);
 
   if (!id || !outfit || removed) {
     return (
@@ -63,7 +60,7 @@ function OutfitDetail() {
   };
 
   return (
-    <div className="pb-6">
+    <div className="pb-28">
       <header className="sticky top-0 z-30 flex items-center justify-between bg-background/90 px-5 pb-3 pt-4 backdrop-blur-md">
         <Link href="/" prefetch={false} className="text-sm text-muted">
           ‹ 返回
@@ -73,17 +70,31 @@ function OutfitDetail() {
       </header>
 
       <div className="px-5">
-        <div className="overflow-hidden rounded-[28px] bg-sand shadow-[inset_0_0_0_1px_rgba(42,36,32,0.04)]">
+        <div className="overflow-hidden rounded-[28px] bg-gradient-to-b from-surface-soft to-sand shadow-soft">
           <ModelCanvas userModel={userModel} wardrobe={wardrobe} outfit={outfit} />
         </div>
 
-        <div className="mt-4 flex gap-3">
+        <div className="mt-4">
+          {rec && (
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+              {rec.label}
+            </p>
+          )}
+          <h2 className="mt-1 font-display text-[24px] font-semibold tracking-tight text-ink">
+            {rec?.tagline ?? "这套搭配"}
+          </h2>
+          {slots.length > 0 && (
+            <p className="mt-2 text-[14px] leading-relaxed text-ink/75">
+              {slots.map((s) => s.item.name).join(" + ")}
+            </p>
+          )}
+        </div>
+
+        <div className="mt-5 flex gap-2.5">
           <button
             onClick={() => void handleFavorite()}
-            className={`flex h-12 flex-1 items-center justify-center gap-2 rounded-full text-[15px] font-medium transition active:scale-[0.98] ${
-              isFavorite
-                ? "border border-accent/30 bg-accent-soft text-accent-deep"
-                : "bg-accent text-white shadow-[0_8px_20px_rgba(185,106,75,0.25)]"
+            className={`pressable flex h-12 flex-1 items-center justify-center gap-2 rounded-full text-[14px] font-medium ${
+              isFavorite ? "bg-accent-soft text-accent-deep" : "bg-accent text-white shadow-[0_8px_20px_rgba(233,142,166,0.28)]"
             }`}
           >
             <IconHeart
@@ -96,27 +107,41 @@ function OutfitDetail() {
           <Link
             href={`/dress?outfit=${outfit.id}`}
             prefetch={false}
-            className="flex h-12 flex-1 items-center justify-center gap-1 rounded-full border border-line bg-surface text-[15px] font-medium text-ink transition active:scale-[0.98]"
+            className="pressable flex h-12 flex-1 items-center justify-center gap-1 rounded-full border border-line bg-surface text-[14px] font-medium text-ink"
           >
-            去换装
-            <IconChevronRight width={16} height={16} />
+            <IconSparkle width={17} height={17} className="text-accent" />
+            换一件试试
           </Link>
         </div>
 
+        {rec && (
+          <div className="mt-5 rounded-[22px] bg-surface-soft p-4">
+            <p className="text-[13px] font-semibold text-ink">为什么这样搭？</p>
+            <p className="mt-1 text-[12px] leading-relaxed text-muted">
+              {rec.look === 3
+                ? "从你收藏过的搭配里，挑出今天最合适的一套。"
+                : rec.look === 2
+                  ? "基于穿搭法则生成，让颜色、版型和层次更协调。"
+                  : "换个思路尝试新组合，今天换个不一样的自己。"}
+            </p>
+          </div>
+        )}
+
         <section className="mt-6">
-          <h2 className="px-1 text-[15px] font-semibold text-ink">搭配清单</h2>
+          <h2 className="px-1 text-[15px] font-semibold tracking-tight text-ink">搭配清单</h2>
+          <p className="mt-0.5 px-1 text-[11px] text-muted">{slots.length} 件单品</p>
           <div className="mt-3 space-y-2">
             {slots.length === 0 && (
-              <p className="rounded-2xl border border-line bg-surface px-4 py-6 text-center text-sm text-muted">
+              <p className="rounded-[18px] bg-surface-soft px-4 py-6 text-center text-sm text-muted">
                 这套搭配没有单品了，去换装间重新搭一套吧
               </p>
             )}
             {slots.map(({ category, item }) => (
               <div
                 key={`${category}-${item.id}`}
-                className="flex items-center gap-3 rounded-2xl border border-line bg-surface p-3"
+                className="flex items-center gap-3 rounded-[18px] bg-surface p-3 shadow-soft"
               >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-sand p-1.5">
+                <div className="flex h-14 w-12 shrink-0 items-center justify-center rounded-[12px] bg-surface-soft p-1.5">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={item.imageUrl} alt={item.name} draggable={false} className="h-full w-full object-contain" />
                 </div>
@@ -127,6 +152,7 @@ function OutfitDetail() {
                 {item.isFavorite && (
                   <IconHeart width={16} height={16} className="shrink-0 fill-accent stroke-accent" />
                 )}
+                <IconChevronRight width={15} height={15} className="shrink-0 text-muted/50" />
               </div>
             ))}
           </div>
@@ -134,7 +160,7 @@ function OutfitDetail() {
 
         <button
           onClick={() => void handleDelete()}
-          className="mt-6 flex w-full items-center justify-center gap-2 rounded-full border border-red-200 py-3 text-sm text-red-500 transition active:scale-[0.98]"
+          className="pressable mt-6 flex w-full items-center justify-center gap-2 rounded-full border border-red-100 bg-surface py-3 text-sm text-red-400"
         >
           <IconTrash width={17} height={17} />
           删除这套搭配

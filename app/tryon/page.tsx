@@ -263,7 +263,7 @@ export default function TryOnPage() {
       </header>
 
       <div className="space-y-4 px-5 pt-2">
-        <section className="rounded-3xl border border-line bg-surface p-4">
+        <section className="rounded-[22px] bg-surface p-4 shadow-soft">
           <p className="text-xs text-muted">我的模特照片</p>
           <div className="mt-2 flex gap-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -283,7 +283,7 @@ export default function TryOnPage() {
           )}
         </section>
 
-        <section className="rounded-3xl border border-line bg-surface p-4">
+        <section className="rounded-[22px] bg-surface p-4 shadow-soft">
           <p className="text-xs text-muted">选择要试穿的衣物（{garments.length} 件可选）</p>
           {garments.length === 0 ? (
             <div className="mt-3 rounded-2xl bg-sand p-4 text-center text-sm text-muted">
@@ -316,7 +316,7 @@ export default function TryOnPage() {
             <button
               onClick={() => void generate()}
               disabled={!selected || health?.configured === false || remainingToday() <= 0}
-              className="w-full rounded-full bg-accent py-4 text-[15px] font-medium text-white shadow-[0_8px_24px_rgba(185,106,75,0.3)] transition active:scale-[0.98] disabled:opacity-40"
+              className="pressable w-full rounded-full bg-accent py-4 text-[15px] font-medium text-white shadow-[0_8px_24px_rgba(233,142,166,0.32)] disabled:opacity-40"
             >
               ✨ AI 真实试穿（今日剩余 {remainingToday()} 次）
             </button>
@@ -327,7 +327,7 @@ export default function TryOnPage() {
         )}
 
         {phase === "loading" && (
-          <div className="flex flex-col items-center gap-4 rounded-3xl border border-line bg-surface py-12 text-center">
+          <div className="flex flex-col items-center gap-4 rounded-[22px] bg-surface py-12 text-center shadow-soft">
             <div className="h-9 w-9 animate-spin rounded-full border-2 border-line border-t-accent" />
             <p className="text-sm text-muted">{loadingMsg}</p>
             <p className="text-[11px] text-muted">通常需要 15~30 秒，请稍等</p>
@@ -335,7 +335,7 @@ export default function TryOnPage() {
         )}
 
         {phase === "error" && (
-          <div className="space-y-3 rounded-3xl border border-line bg-surface p-5 text-center">
+          <div className="space-y-3 rounded-[22px] bg-surface p-5 text-center shadow-soft">
             <p className="text-sm text-red-500">{error}</p>
             <div className="flex gap-2">
               <button
@@ -352,7 +352,11 @@ export default function TryOnPage() {
         )}
 
         {phase === "result" && result?.success && (
-          <section className="space-y-3 rounded-3xl border border-line bg-surface p-4">
+          <section className="space-y-3 rounded-[22px] bg-surface p-4 shadow-soft">
+            <div className="text-center">
+              <p className="text-[12px] font-semibold tracking-wide text-accent">✨ AI 真实试穿完成</p>
+              <p className="mt-0.5 text-[11px] text-muted">生成耗时 {(result.latencyMs / 1000).toFixed(1)}s</p>
+            </div>
             <div className="grid grid-cols-2 gap-2">
               <div>
                 <p className="text-[10px] text-muted">原图</p>
@@ -365,9 +369,7 @@ export default function TryOnPage() {
                 <img src={result.imageUrl} alt="result" className="mt-1 w-full rounded-2xl border border-line object-cover" />
               </div>
             </div>
-            <p className="text-center text-[10px] text-muted">
-              生成耗时 {Math.round(result.latencyMs / 1000)}s · 本次体验成本 ¥{DASHSCOPE_PRICE_CNY}
-            </p>
+            <p className="text-center text-[10px] text-muted">本次体验成本 ¥{DASHSCOPE_PRICE_CNY}</p>
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={() => void markSaved("favorite")}
